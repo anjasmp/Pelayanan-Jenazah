@@ -11,15 +11,17 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('donation-package.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Paket</a>
+        <a href="{{ route('product.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Paket</a>
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Paket</th>
-                    <th>Deskripsi</th>
+                    <th>Fitur</th>
+                    <th>About</th>
                     <th>Tipe</th>
+                    <th>Pendaftaran (Rp)</th>
                     <th>Harga (Rp)</th>
                     <th>Aksi</th>
                 </tr>
@@ -28,17 +30,19 @@
             <tbody>
                 @forelse ($items as $key => $item)
                 <tr>
-                <td>{{ $key + 1 }}</td>
+                    <td>{{ $key + 1 }}</td>
                     <td>{{ substr($item->title, 0, 10) }}</td>
+                    <td>{!! substr($item->features, 0, 20) !!}</td>
                     <td>{!! substr($item->about, 0, 20) !!}</td>
                     <td>{{ $item->type }}</td>
-                    <td><div class="myDIV">{{ $item->target_dana }}</div></td>
+                    <td><div class="myDIV">{{ $item->register }}</div></td>
+                    <td><div class="myDIV">{{ $item->price }}</div></td>
                     
                     <td>
-                        <a href="{{ route('donation-package.edit', $item->id) }}" class="btn btn-info">
+                        <a href="{{ route('product.edit', $item->id) }}" class="btn btn-info">
                         <i class="fa fa-pencil-alt"></i></a>
 
-                        <form action="{{ route('donation-package.destroy', $item->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('product.destroy', $item->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">

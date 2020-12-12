@@ -27,13 +27,13 @@ class DonationController extends Controller
         // } else {
         //     $donations = Donation::orderBy('id', 'DESC')->where('status', 'success')->get();
         // }
-        return view('user.infaqwakaf.index', compact('donations'));
+        return view('user.pelayananjenazah.index', compact('donations'));
     }
 
 
     public function create()
     {
-        return view('user.infaqwakaf.donation');
+        return view('user.pelayananjenazah.donation');
     }
 
     public function store(Request $request)

@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Paket Pilihan')
+@section('sub-judul','Transaction')
 @section('content')
 
 
@@ -11,34 +11,39 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('donation-package.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Paket</a>
+
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Paket</th>
-                    <th>Deskripsi</th>
-                    <th>Tipe</th>
-                    <th>Harga (Rp)</th>
-                    <th>Aksi</th>
+                    <th>Product</th>
+                    <th>Nama</th>
+                    <th>Total (Rp)</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
                 @forelse ($items as $key => $item)
                 <tr>
-                <td>{{ $key + 1 }}</td>
-                    <td>{{ substr($item->title, 0, 10) }}</td>
-                    <td>{!! substr($item->about, 0, 20) !!}</td>
-                    <td>{{ $item->type }}</td>
-                    <td><div class="myDIV">{{ $item->target_dana }}</div></td>
-                    
-                    <td>
-                        <a href="{{ route('donation-package.edit', $item->id) }}" class="btn btn-info">
-                        <i class="fa fa-pencil-alt"></i></a>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ substr($item->product->title, 0, 20) }}...</td>
+                    <td>{{ $item->user->name }}</td>
+                    <td><div class="myDIV">{{ $item->transaction_total }}</div></td>
 
-                        <form action="{{ route('donation-package.destroy', $item->id) }}" method="POST" class="d-inline">
+                    <td>{{ $item->transaction_status }}</td>
+                    <td>
+                        <a href="{{ route('transaction-product.show', $item->id) }}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                            </a>
+
+                        <a href="{{ route('transaction-product.edit', $item->id) }}" class="btn btn-warning">
+                        <i class="fa fa-pencil-alt"></i>
+                        </a>
+
+                        <form action="{{ route('transaction-product.destroy', $item->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">

@@ -473,61 +473,66 @@ Route::group(['middleware' => ['role_or_permission:admin|delete qurban distribut
 });
 
 
-
+Route::resource('/user', 'UserController');
 //MIDDLEWARE USER
-Route::group(['middleware' => ['role_or_permission:admin|index users']], function () {
+// Route::group(['middleware' => ['role_or_permission:admin|index users']], function () {
 
-    Route::resource('/user', 'UserController')->only([
-        'index'
-    ]);
+//     Route::resource('/user', 'UserController')->only([
+//         'index'
+//     ]);
 
-});
+// });
 
-Route::group(['middleware' => ['role_or_permission:admin|create users']], function () {
+// Route::group(['middleware' => ['role_or_permission:admin|create users']], function () {
 
-    Route::resource('/user', 'UserController')->only([
-        'create', 'store'
-    ]);
+//     Route::resource('/user', 'UserController')->only([
+//         'create', 'store'
+//     ]);
 
-});
+// });
 
-Route::group(['middleware' => ['role_or_permission:admin|edit users']], function () {
+// Route::group(['middleware' => ['role_or_permission:admin|edit users']], function () {
 
-    Route::resource('/user', 'UserController')->only([
-        'edit', 'update'
-    ]);
+//     Route::resource('/user', 'UserController')->only([
+//         'edit', 'update'
+//     ]);
 
-});
+// });
 
-Route::group(['middleware' => ['role_or_permission:admin|delete users']], function () {
+// Route::group(['middleware' => ['role_or_permission:admin|delete users']], function () {
 
-    Route::resource('/user', 'UserController')->only([
-        'destroy'
-    ]);
+//     Route::resource('/user', 'UserController')->only([
+//         'destroy'
+//     ]);
 
-});
+// });
 
 
-
-//MIDDLEWARE CHECK PERMISSIONS
-Route::group(['middleware' => ['role:admin']], function () {
-
-    Route::post('/users/permission', 'UserController@addPermission')->name('users.add_permission');
+Route::post('/users/permission', 'UserController@addPermission')->name('users.add_permission');
     Route::get('/users/role-permission', 'UserController@rolePermission')->name('users.roles_permission');
     Route::put('/users/permission/{role}', 'UserController@setRolePermission')->name('users.setRolePermission');
+// //MIDDLEWARE CHECK PERMISSIONS
+// Route::group(['middleware' => ['role:admin']], function () {
 
-});
+//     Route::post('/users/permission', 'UserController@addPermission')->name('users.add_permission');
+//     Route::get('/users/role-permission', 'UserController@rolePermission')->name('users.roles_permission');
+//     Route::put('/users/permission/{role}', 'UserController@setRolePermission')->name('users.setRolePermission');
 
+// });
 
-//MIDDLEWARE EDIT ROLE
-Route::group(['middleware' => ['role_or_permission:admin|edit role']], function () {
-
-    Route::resource('roles', 'RoleController');
+Route::resource('roles', 'RoleController');
 
     Route::get('/users/roles/{id}', 'UserController@roles')->name('users.roles');
     Route::put('/users/roles/{id}', 'UserController@setRole')->name('users.set_role');
+//MIDDLEWARE EDIT ROLE
+// Route::group(['middleware' => ['role_or_permission:admin|edit role']], function () {
 
-});
+//     Route::resource('roles', 'RoleController');
+
+//     Route::get('/users/roles/{id}', 'UserController@roles')->name('users.roles');
+//     Route::put('/users/roles/{id}', 'UserController@setRole')->name('users.set_role');
+
+// });
 
 
 //MIDDLEWARE JADWAL SHOLAT
@@ -535,3 +540,20 @@ Route::group(['middleware' => ['role_or_permission:admin|setting prayer schedule
 
     Route::get('/jadwal-sholat', 'JadwalSholatController@index')->name('jadwal-sholat.index');
 });
+
+
+
+// Product
+Route::get('/product/show-deletes', 'Admin\ProductController@show_deletes')->name('product.show-deletes');
+Route::get('/product/restore/{id}', 'Admin\ProductController@restore')->name('product.restore');
+Route::delete('/product/kill/{id}', 'Admin\ProductController@kill')->name('product.kill');
+
+Route::resource('product', 'Admin\ProductController');
+
+
+// Transaction Product
+Route::get('/transaction-product/show-deletes', 'Admin\TransactionProductController@show_deletes')->name('transaction-product.show-deletes');
+Route::get('/transaction-product/restore/{id}', 'Admin\TransactionProductController@restore')->name('transaction-product.restore');
+Route::delete('/transaction-product/kill/{id}', 'Admin\TransactionProductController@kill')->name('transaction-product.kill');
+
+Route::resource('transaction-product', 'Admin\TransactionProductController');

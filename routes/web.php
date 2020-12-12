@@ -14,8 +14,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomepageController@index');
 
-// Route::get('/donation', 'DonationController@create')->name('donation.create');
-// Route::get('/donation/list', 'DonationController@index')->name('donation.list');
+// Route::get('/product', 'DonationController@create')->name('product.create');
+// Route::get('/product/list', 'DonationController@index')->name('product.list');
 
 
 Route::get('/postlist', 'HomepageController@list_post')->name('post.list');
@@ -28,23 +28,23 @@ Route::get('/tagslist/{tags}', 'HomepageController@list_tags')->name('post.tags'
 
 Route::get('/search', 'HomepageController@search')->name('post.search');
 
-Route::get('/donationlist', 'HomepageController@list_donation')->name('donation.list');
+Route::get('/productlist', 'HomepageController@list_product')->name('product.list');
 
-Route::get('/donationdetail/{slug}', 'DetailDonationController@index')->name('donation.detail');
+Route::get('/productdetail/{slug}', 'DetailProductController@index')->name('product.detail');
 
 
 
-Route::post('/donationcheckout/{id}', 'CheckoutController@process')
-->name('donation.checkout-process');
+Route::post('/productcheckout/{id}', 'CheckoutController@process')
+->name('product.checkout-process');
 
-Route::get('/donationcheckout/{id}', 'CheckoutController@index')
-->name('donation.checkout');
+Route::get('/productcheckout/{id}', 'CheckoutController@index')
+->name('product.checkout');
 
-Route::post('/donationcheckout/create/{detail_id}', 'CheckoutController@create')
-->name('donation.checkout-success');
+Route::post('/productcheckout/create/{detail_id}', 'CheckoutController@create')
+->name('product.checkout-success');
 
-Route::get('/donationcheckout/confirm/{id}', 'CheckoutController@success')
-->name('donation.checkout-success');
+Route::get('/productcheckout/confirm/{id}', 'CheckoutController@success')
+->name('product.checkout-success');
 
 
 Route::get('/lazhaq', 'LazhaqController@index')

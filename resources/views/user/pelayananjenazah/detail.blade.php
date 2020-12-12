@@ -52,7 +52,7 @@
               class="features-image"
             />
             <div class="description">
-              <h2><div class="myDIV">15000</div></h2>
+              <h2><div class="myDIV">{{ $item->register }}</div></h2>
               <p>Pendaftaran</p>
             </div>
           </div>
@@ -64,7 +64,7 @@
               class="features-image"
             />
             <div class="description">
-            <h2><div class="myDIV">{{ $item->target_dana }}  </div></h2>
+            <h2><div class="myDIV">{{ $item->price }}  </div></h2>
               <p>/{{ $item->type }}</p> 
             </div>
           </div>
@@ -72,9 +72,9 @@
           <hr />
 
           @auth
-          <h2>Nominal Donation</h2>
-          <p>Donatur Name : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
-          <label class="sr-only" for="inputUsername">Nominal</label>
+          <h2>Penanggung Jawab</h2>
+          <p>Nama : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
+          {{-- <label class="sr-only" for="inputUsername">Nominal</label>
           @if ($errors->any())
           <div class="alert alert-danger">
               <ul>
@@ -84,7 +84,7 @@
               </ul>
           </div>
           @endif
-                  <form action="{{ route('donation.checkout-process', $item->id)}}" method="post" id="authForm">
+                  <form action="{{ route('product.checkout-process', $item->id)}}" method="post" id="authForm">
                     @csrf
                     <input
                     name="nominal"
@@ -93,7 +93,7 @@
                     id="inputNominal"
                     placeholder="Nominal Rp."
                   />
-                  </form>
+                  </form> --}}
           @endauth
          
              
@@ -110,107 +110,6 @@
                     </ul>
                 </div>
                 @endif
-                <form action="{{ route('donation.checkout-process', $item->id)}}" method="post" id="authForm">
-                  @csrf
-                  <label class="sr-only" for="inputUsername">Nama lengkap</label>
-                  <input
-                  name="name"
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inpuName"
-                    placeholder="Nama"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Tempat Lahir</label>
-                  <input
-                  name="tempat_lahir"
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inpuTempatLahir"
-                    placeholder="Tempat Lahir"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Tanggal Lahir</label>
-                  <input
-                  name="tanggal_lahir"
-                    type="date"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputTanggalLahir"
-                    placeholder="Tanggal Lahir"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Alamat</label>
-                  <textarea 
-                  class="form-control mb-2 mr-sm-2" 
-                  name="alamat" 
-                  id="inputAlamat" 
-                  rows="3" 
-                  placeholder="Alamat">
-                  </textarea>
-
-                  <label class="sr-only" for="inputUsername">Email</label>
-                  <input
-                  name="email"
-                    type="email"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputEmail"
-                    placeholder="Email"
-                  />
-                  <label class="sr-only" for="inputUsername">Nomor Handphone</label>
-                  <input
-                  name="no_handphone"
-                    type="number"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputWhatsapp"
-                    placeholder="Nomor Handphone"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Pekerjaan</label>
-                  <input
-                  name="pekerjaan"
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputPekerjaan"
-                    placeholder="Pekerjaan"
-                  />
-
-                  <label class="sr-only" for="inputUsername">No. KTP</label>
-                  <input
-                  name="no_ktp"
-                    type="number"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputNoKtp"
-                    placeholder="Nomor KTP"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Upload Scan KTP</label>
-                  <h3 style="margin-bottom: -5px">Upload Scan KTP</h3>
-                  <input
-                  name="scanKtp"
-                    type="file"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputScanKtp"
-                    placeholder="Upload Scan KTP"
-                  />
-                  
-
-                  <label class="sr-only" for="inputUsername">Upload Scan Kartu Keluarga</label>
-                  <h3 style="margin-bottom: -5px">Upload Scan Kartu Keluarga</h3>
-                  <input
-                  name="scanKK"
-                    type="file"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputScankk"
-                    placeholder="Upload Scan KK"
-                  />
-                  {{-- p --}}
-
-                </form>
-               
-                
-                <p class="disclaimer mb-0"> <input type="checkbox" name="syarat" id="inputSyarat">
-                 <a href="#">Setuju Syarat dan Ketentuan</a> 
-                </p>
               </div>
               @endguest
         </div>
@@ -271,7 +170,7 @@ data-client-key="{{ config('services.midtrans.clientKey')}}"></script>
   $("#authForm").submit(function (event) {
     event.preventDefault();
 
-    $.post("/donationcheckout/{id}", {
+    $.post("/productcheckout/{id}", {
       _method: 'POST',
       _token: '{{ csrf_token()}}',
       name: $('input#inpuName').val(),

@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Gallery')
+@section('sub-judul','Banner')
 @section('content')
 
 
@@ -11,15 +11,15 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('gallery.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Create Gallery</a>
+        <a href="{{ route('gallery.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Banner</a>
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Donation</th>
-                    <th>Image</th>
-                    <th>Action</th>
+                    <th>Paket Pilihan</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
 

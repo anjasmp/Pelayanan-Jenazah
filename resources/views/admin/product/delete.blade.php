@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Paket Pilihan')
+@section('sub-judul','Reclye Bin Products')
 @section('content')
 
 
@@ -11,14 +11,14 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('donation-package.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Paket</a>
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Paket</th>
-                    <th>Deskripsi</th>
+                    <th>Fitur</th>
+                    <th>About</th>
                     <th>Tipe</th>
                     <th>Harga (Rp)</th>
                     <th>Aksi</th>
@@ -26,19 +26,19 @@
             </thead>
 
             <tbody>
-                @forelse ($items as $key => $item)
+                @forelse ($item as $items => $result)
                 <tr>
-                <td>{{ $key + 1 }}</td>
-                    <td>{{ substr($item->title, 0, 10) }}</td>
-                    <td>{!! substr($item->about, 0, 20) !!}</td>
-                    <td>{{ $item->type }}</td>
-                    <td><div class="myDIV">{{ $item->target_dana }}</div></td>
-                    
+                    <td>{{ $items + 1 }}</td>
+                    <td>{{ substr($result->title, 0, 10) }}</td>
+                    <td>{!! substr($result->features, 0, 20) !!}</td>
+                    <td>{!! substr($result->about, 0, 20) !!}</td>
+                    <td>{{ $result->type }}</td>
+                    <td><div class="myDIV">{{ $result->price }}</div></td>
                     <td>
-                        <a href="{{ route('donation-package.edit', $item->id) }}" class="btn btn-info">
-                        <i class="fa fa-pencil-alt"></i></a>
+                        <a href="{{ route('product.restore', $result->id) }}" class="btn btn-info">
+                        <i class="fa fa-undo-alt"></i> </a>
 
-                        <form action="{{ route('donation-package.destroy', $item->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('product.kill', $result->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">
@@ -70,14 +70,4 @@ $(document).ready(function() {
     $('#tablepost').dataTable()
 })
 </script>
-
-<script>
-    let x = document.querySelectorAll(".myDIV"); 
-    for (let i = 0, len = x.length; i < len; i++) { 
-        let num = Number(x[i].innerHTML) 
-                  .toLocaleString('en'); 
-        x[i].innerHTML = num; 
-        x[i].classList.add("currSign"); 
-    } 
-  </script>
 @endpush

@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Edit Banner')
+@section('sub-judul','Edit Transaction')
 @section('content')
 
 
@@ -22,25 +22,25 @@
         </div>
         @endif
 
-    <form action="{{ route('gallery.update', $item->id )}}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('transaction-product.update', $item->id )}}" method="POST">
         @method('PUT')
         @csrf
+
         <div class="form-group">
-            <label for="donation_packages_id">Donation Packages</label>
-            <select name="donation_packages_id" required class="form-control">
-            <option value="{{ $item->donation_packages_id }}">Don't Change</option>
-                @foreach ($donation_packages as $donation_package)
-            <option value="{{ $donation_package->id }}">
-                {{ $donation_package->title }}
+            <label for="transaction_status">Status</label>
+            <select name="transaction_status" required class="form-control">
+            <option value="{{ $item->transaction_status }}">
+                Jangan ubah ({{ $item->transaction_status }})
             </option>
-                @endforeach
+            <option value="IN_CART">In Cart</option>
+            <option value="PENDING">Pending</option>
+            <option value="SUCCESS">Success</option>
+            <option value="CANCEL">Cancel</option>
+            <option value="FAILED">Failed</option>
+
             </select>
         </div>
-        <div class="form-group">
-            <label for="image">Image</label>
-            <input type="file" class="form-control" name="image" placeholder="image">
 
-        </div>
         <button type="submit" class="btn btn-primary btn-block">Update</button>
     </form>
 
@@ -50,10 +50,3 @@
 
 
 @endsection
-
-@push('scripts')
-<script src="{{ asset('src/ckeditor/ckeditor.js')}}"></script>
-<script>
-CKEDITOR.replace( 'about' );
-</script>
-@endpush

@@ -409,7 +409,7 @@ h6 {
     position: relative;
     background: url("../img/intro-bg.png") center bottom no-repeat;
     background-size: cover;
-    padding: 200px 0 30px 0;
+    padding: 200px 0 250px 0;
 }
 
 @media (max-width: 991px) {
@@ -534,7 +534,7 @@ tbody td h4 {
 #introcontent .box {
     position: relative;
     overflow: hidden;
-    border-radius: 91px;
+    border-radius: 81px;
     background: #fff;
     /* box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1); */
     transition: all 0.3s ease-in-out;
@@ -1100,12 +1100,12 @@ section {
 /* Infaq Wakaf Section
 --------------------------------*/
 
-#infaqwakaf img {
+#pelayananjenazah img {
     padding: 60px 0 40px 0;
     width: 60%;
 }
 
-#infaqwakaf .section-header {
+#pelayananjenazah .section-header {
     margin-top: 50px;
     color: #008d88;
     font-family: Poppins;
@@ -1189,6 +1189,110 @@ section {
 
 .currSign:before {
     content: 'Rp';
+}
+
+
+/*Paket Pilihan*/
+
+.pricing .box {
+    padding: 20px;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+    box-shadow: 0 10px 10px 0 rgba(68, 88, 144, 0.1);
+}
+
+.pricing .box h3 {
+    font-weight: 400;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #222222;
+}
+
+.pricing .box h4 {
+    font-size: 42px;
+    color: #08939a;
+    font-weight: 500;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 20px;
+}
+
+.pricing .box h4 sup {
+    font-size: 20px;
+    top: -15px;
+    left: -3px;
+}
+
+.pricing .box h4 span {
+    color: #bababa;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.pricing .box ul {
+    padding: 0;
+    list-style: none;
+    color: #222222;
+    text-align: center;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.pricing .box ul li {
+    padding-bottom: 16px;
+}
+
+.pricing .box ul i {
+    color: #18dbe2;
+    font-size: 18px;
+    padding-right: 4px;
+}
+
+.pricing .box ul .na {
+    color: #ccc;
+    text-decoration: line-through;
+}
+
+.pricing .box .btn-wrap {
+    padding: 15px;
+    text-align: center;
+}
+
+.pricing .box .btn-buy {
+    display: inline-block;
+    padding: 10px 40px 12px 40px;
+    border-radius: 50px;
+    border: 2px solid #029ba0;
+    color: #029ba0;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Raleway", sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.pricing .box .btn-buy:hover {
+    background: #18dbe2;
+    color: #fff;
+}
+
+.pricing .recommended {
+    border-color: #3498db;
+}
+
+.pricing .recommended .btn-buy {
+    background: #3498db;
+    color: #fff;
+}
+
+.pricing .recommended .btn-buy:hover {
+    background: #2383c4;
+    border-color: #2383c4;
 }
 
 

@@ -38,9 +38,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function transactions()
+    public function transaction()
     {
-        return $this->morphMany(Transaction::class, 'userable');
+        return $this->morphMany(TransactionProduct::class, 'users_id', 'id');
+    }
+
+    public function userdetails()
+    {
+        return $this->morphMany(UserDetails::class, 'users_id', 'id');
     }
 
 }

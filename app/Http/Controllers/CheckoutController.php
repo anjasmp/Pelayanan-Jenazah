@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Mail;
-use App\Mail\TransactionSuccess;
-use App\Transaction;
-use App\DonationPackage;
+use App\Mail\TransactionProductSuccess;
+use App\TransactionProduct;
+use App\Product;
 use App\Guest;
+use App\TransactionDetail;
+use App\UserDetails;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,9 +23,9 @@ class CheckoutController extends Controller
 
     public function index (Request $request, $id)
     {
-        $item = Transaction::with(['userable','donation_package'])->findOrFail($id);
+        $item = TransactionProduct::with(['details','user','product'])->findOrFail($id);
 
-        return view('user.infaqwakaf.checkout',[
+        return view('user.pelayananjenazah.checkout',[
             'item' => $item
         ]);
     }
@@ -33,18 +35,17 @@ class CheckoutController extends Controller
         $this->validate($request, [
             'name' => 'max:30',
             'email' => 'email',
-            'no_handphone' => 'string|max:12',
-            'nominal' => 'required'
+            'no_handphone' => 'string|max:12'
         ]);
 
-        $donation_package = DonationPackage::findOrFail($id);
+        $product = Product::findOrFail($id);
         $data = $request->all();
 
         if (Auth::check()) {
             
             $transaction = Auth::user()->transactions()->create([
                 'transaction_status' => 'IN_CART',
-                'donation_packages_id' => $donation_package->id,
+                'products_id' => $product->id,
                 'transaction_total' => $data['nominal'],
             ]);
         } else {
@@ -66,13 +67,38 @@ class CheckoutController extends Controller
 
         $transaction = $guest->transactions()->create([
             'transaction_status' => 'IN_CART',
-            'donation_packages_id' => $donation_package->id,
-            'transaction_total' => $data['nominal'],
+            'products_id' => $product->id,
+            'transaction_total' => $product['price'],
         ]);
-    }
+        }
+
+        // $product = Product::findOrFail($id);
+        // $user = UserDetails::all();
+        // $transactiondetail = TransactionDetail::all();
+
+        // $transaction = TransactionProduct::create([
+        //     'product_id' => $id,
+        //     'users_id' => $id,
+        //     'masa_aktif' => Carbon::now()->addYear(5),
+        //     'register' => 1,
+        //     'transaction_total' => $product->price,
+        //     'transaction_status' => 'IN_CART'
+        // ]);
+
+        // TransactionDetail::create([
+        //     'transaction_products_id' => $transaction->id,
+        //     'name' => $transactiondetail->name,
+        //     'nik' => $transactiondetail->nik
+        // ]);
+
+        // UserDetails::create([
+        //     'users_id' => $user->id,
+        //     'name' => $user->name,
+        //     'nik' => $transactiondetail->nik
+        // ]);
 
 
-        return redirect()->route('donation.checkout', $transaction->id);
+        // return redirect()->route('product.checkout', $transaction->id);
 
     }
 
@@ -80,7 +106,7 @@ class CheckoutController extends Controller
 
     public function success (Request $request, $id)
     {
-        $transaction = Transaction::with(['donation_package.galleries','userable'])
+        $transaction = TransactionProduct::with(['product.galleries','userable'])
             ->findOrFail($id);
         $transaction->transaction_status = 'PENDING';
 
@@ -91,11 +117,11 @@ class CheckoutController extends Controller
         // ini untuk Transfer Manual
         //kirim email keuser
         Mail::to($transaction->userable)->send(
-            new TransactionSuccess($transaction)
+            new TransactionProductSuccess($transaction)
         );
 
 
-        return view('user.infaqwakaf.success');
+        return view('user.pelayananjenazah.success');
 
       
 
@@ -121,7 +147,7 @@ class CheckoutController extends Controller
 
         // try {
         //     // ambil halaman payment midtrans
-        //     $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
+        //     $paymentUrl = Snap::createTransactionProduct($midtrans_params)->redirect_url;
 
         //     // dd($paymentUrl);
 

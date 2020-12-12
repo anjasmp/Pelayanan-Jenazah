@@ -52,6 +52,102 @@
                     </tr>
                   </tbody>
                 </table>
+                <form action="{{ route('product.checkout-process', $item->id)}}" method="post" id="authForm">
+                  @csrf
+                  <label class="sr-only" for="inputUsername">Nama lengkap</label>
+                  <input
+                  name="name"
+                    type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inpuName"
+                    placeholder="Nama"
+                  />
+
+                  <label class="sr-only" for="inputUsername">Tempat Lahir</label>
+                  <input
+                  name="tempat_lahir"
+                    type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inpuTempatLahir"
+                    placeholder="Tempat Lahir"
+                  />
+
+                  <label class="sr-only" for="inputUsername">Tanggal Lahir</label>
+                  <input
+                  name="tanggal_lahir"
+                    type="date"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputTanggalLahir"
+                    placeholder="Tanggal Lahir"
+                  />
+
+                  <label class="sr-only" for="inputUsername">Alamat</label>
+                  <textarea 
+                  class="form-control mb-2 mr-sm-2" 
+                  name="alamat" 
+                  id="inputAlamat" 
+                  rows="3" 
+                  placeholder="Alamat">
+                  </textarea>
+
+                  <label class="sr-only" for="inputUsername">Email</label>
+                  <input
+                  name="email"
+                    type="email"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputEmail"
+                    placeholder="Email"
+                  />
+                  <label class="sr-only" for="inputUsername">Nomor Handphone</label>
+                  <input
+                  name="no_handphone"
+                    type="number"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputWhatsapp"
+                    placeholder="Nomor Handphone"
+                  />
+
+                  <label class="sr-only" for="inputUsername">Pekerjaan</label>
+                  <input
+                  name="pekerjaan"
+                    type="text"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputPekerjaan"
+                    placeholder="Pekerjaan"
+                  />
+
+                  <label class="sr-only" for="inputUsername">No. KTP</label>
+                  <input
+                  name="no_ktp"
+                    type="number"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputNoKtp"
+                    placeholder="Nomor KTP"
+                  />
+
+                  <label class="sr-only" for="inputUsername">Upload Scan KTP</label>
+                  <h3 style="margin-bottom: -5px">Upload Scan KTP</h3>
+                  <input
+                  name="scanKtp"
+                    type="file"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputScanKtp"
+                    placeholder="Upload Scan KTP"
+                  />
+                  
+
+                  <label class="sr-only" for="inputUsername">Upload Scan Kartu Keluarga</label>
+                  <h3 style="margin-bottom: -5px">Upload Scan Kartu Keluarga</h3>
+                  <input
+                  name="scanKK"
+                    type="file"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputScankk"
+                    placeholder="Upload Scan KK"
+                  />
+                  {{-- p --}}
+
+                </form>
               </div>
             </div>
           </div>

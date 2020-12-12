@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\DonationPackage;
-use App\Transaction;
+use App\Product;
+use App\TransactionProduct;
 use Illuminate\Http\Request;
 
-class DetailDonationController extends Controller
+class DetailProductController extends Controller
 {
     public function index (Request $request, $slug)
     {
-        $item = DonationPackage::with(['galleries'])
-            ->where('slug', $slug)
+        $item = Product::where('slug', $slug)
             ->firstOrFail();
-        $transaction = Transaction::all();
+        $transaction = TransactionProduct::all();
 
 
 

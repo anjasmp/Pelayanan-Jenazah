@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Create Gallery')
+@section('sub-judul','Tambah Gambar')
 @section('content')
 
 
@@ -25,9 +25,9 @@
     <form action="{{ route('gallery.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="donation_packages_id">Donation Packages</label>
+            <label for="donation_packages_id">Paket Pilihan</label>
             <select name="donation_packages_id" required class="form-control">
-                <option value="">Select Donation Packages</option>
+                <option value="">Pilih Paket</option>
                 @foreach ($donation_packages as $donation_package)
             <option value="{{ $donation_package->id }}">
                 {{ $donation_package->title }}
@@ -36,11 +36,11 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="image">Image</label>
+            <label for="image">Banner</label>
             <input type="file" class="form-control" name="image" placeholder="image">
 
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Save</button>
+        <button type="submit" class="btn btn-primary btn-block">Simpan</button>
     </form>
 
 

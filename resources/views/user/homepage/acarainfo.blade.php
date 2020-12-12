@@ -1,8 +1,8 @@
 <section id="new_post">
     <div class="container" data-aos="fade-up">
         <header class="section-header">
-            <h3>Acara & Info</h3>
-            <p>Informasi | Berita | Kajian</p>
+            <h3>Blog</h3>
+            <p>Informasi & Berita </p>
         </header>
 
         <div class="row row-eq-height justify-content-center">

@@ -23,48 +23,16 @@
                         </li>
                     </ul>
                 </li>
-                <li class=""><a href="{{ route('post.list') }}">Acara & Info</a>
+                <li class=""><a href="{{ route('post.list') }}">Blog</a>
                     <ul>
                         {{-- @foreach($category_widget as $result1)
                         <li><a href="{{ route('post.category', $result1->slug )}}">{{ $result1->name }}</a></li>
                         @endforeach --}}
                     </ul>
                 </li>
-                <li class="drop-down"><a href="#" style="pointer-events: none; 
-                    cursor: default;">Pelayanan</a>
-                    <ul>
-                        <li class="drop-down"><a href="#">Ibadah</a>
-                            <ul class="ibadah">
-                                {{-- <li><a href="#">Kutbah Jum'at</a></li>
-                                <li><a href="#">Forum Halaqoh Qur'an</a></li>
-                                <li><a href="#">Taman Pendidikan Qur'an</a></li>
-                                <li><a href="#">Ramadhan</a></li> --}}
-                                <li><a href="{{ route('qurban.index') }}">Qurban</a></li>
-                            </ul>
-                        </li>
-                        <li class="drop-down"><a href="#">Sosial</a>
-                            <ul>
-                                <li><a href="{{ route('upj.index')}}">Unit Laporan Jenazah</a></li>
-                                <li><a href="{{ route('lazhaq.index') }}">Lembaga Amil Zakat</a></li>
-                                {{-- <li><a href="{{ route('qurban.index') }}">Donor Darah</a></li> --}}
-                                {{-- <li><a href="#">Konsultasi Rohani</a></li> --}}
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+              
 
-                {{-- <li class="drop-down"><a href="#">Laporan</a>
-                    <ul>
-                        <li class="qurban"><a href="{{ route('qurban.index') }}">Qurban</a>
-                            
-                        </li>
-                        <li class="sosial"><a href="{{ route('lazhaq.index') }}">Zakat Infaq Shodaqoh</a>
-                            
-                        </li>
-                    </ul>
-                </li> --}}
-
-                <li><a href="{{ route('donation.list') }}" class="btn-get-started scrollto">Infaq & Wakaf</a></li>
+                <li><a href="#pricing" class="btn-get-started scrollto">Pilihan Paket</a></li>
                 @guest
 
                 <li class="drop-down"><a href="#"><i class="fa fa-user-circle-o fa-lg" style="color: rgb(255, 255, 255) !important" aria-hidden="true"></i></a>
