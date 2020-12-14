@@ -8,6 +8,23 @@
 <section class="section-details-content" id="popularContent">
   <div class="container" style="margin-top: 30px; margin-bottom: 30px">
     <div class="row">
+      <div class="col p-0 pl-3 pl-lg-0">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page">
+              Paket Travel
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+              Details
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Checkout
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-8 pl-lg-0">
         <div class="card card-details" style="margin: 10px">
           <h1>{{ $item->title }}</h1>
@@ -35,16 +52,15 @@
                 @endforeach
               </div>
             </div> --}}
-            <h2>Deskripsi</h2>
-            <p>
-              {!! $item->about !!}
-            </p>
+            <p>{!! $item->features !!}</p>
+            <hr />
+            <p>{!! $item->about !!}</p>
         </div>
       </div>
 
       <div class="col-lg-4">
         <div class="card card-details card-right" style="margin: 10px">
-          <h2>Information</h2>
+          <h2>Informasi Harga</h2>
           <div class="col-md-6">
             <img
               src="{{ asset('user/assets/img/ic_bank.png')}}"
@@ -70,51 +86,20 @@
           </div>
 
           <hr />
-
-          @auth
-          <h2>Penanggung Jawab</h2>
-          <p>Nama : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
-          {{-- <label class="sr-only" for="inputUsername">Nominal</label>
-          @if ($errors->any())
-          <div class="alert alert-danger">
-              <ul>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-          @endif
-                  <form action="{{ route('product.checkout-process', $item->id)}}" method="post" id="authForm">
-                    @csrf
-                    <input
-                    name="nominal"
-                    type="number"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputNominal"
-                    placeholder="Nominal Rp."
-                  />
-                  </form> --}}
-          @endauth
-         
-             
-
-              @guest
-              <div class="member mt-3">
-                <h2>Formulir Pendaftaran</h2>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-              </div>
-              @endguest
         </div>
         <div class="join-container" style="margin-left: 10px; margin-right: 10px">
-          <button class="btn btn-block btn-join-now mt-3 py-2" type="submit" form="authForm">Daftar Sekarang!</button>
+
+          
+          @auth
+              <form action="{{ route('product.checkout-process', $item->id)}}" method="post">
+                @csrf
+                <button class="btn btn-block btn-join-now mt3 py-2" type="submit">Join Now</button>
+              </form>
+          @endauth
+          @guest
+          <a href="{{ route('login')}}" class="btn btn-block btn-join-now mt-3 py-2">Login or Register to Join</a>
+          @endguest
+          
         </div>
       </div>
     </div>

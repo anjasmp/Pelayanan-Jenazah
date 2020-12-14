@@ -14,4 +14,9 @@ class UserDetails extends Model
     public function user(){
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
+
+    public function transactions()
+    {
+        return $this->morphMany(TransactionProduct::class, 'users_id', 'id');
+    }
 }

@@ -28,9 +28,12 @@ Route::get('/tagslist/{tags}', 'HomepageController@list_tags')->name('post.tags'
 
 Route::get('/search', 'HomepageController@search')->name('post.search');
 
+
+
 Route::get('/productlist', 'HomepageController@list_product')->name('product.list');
 
-Route::get('/productdetail/{slug}', 'DetailProductController@index')->name('product.detail');
+Route::get('/productdetail/{slug}', 'DetailProductController@index')
+->name('product.detail');
 
 
 
@@ -41,10 +44,16 @@ Route::get('/productcheckout/{id}', 'CheckoutController@index')
 ->name('product.checkout');
 
 Route::post('/productcheckout/create/{detail_id}', 'CheckoutController@create')
-->name('product.checkout-success');
+->name('product.checkout-create');
+
+Route::get('/productcheckout/remove/{detail_id}', 'CheckoutController@remove')
+->name('product.checkout-remove');
+
 
 Route::get('/productcheckout/confirm/{id}', 'CheckoutController@success')
 ->name('product.checkout-success');
+
+
 
 
 Route::get('/lazhaq', 'LazhaqController@index')

@@ -6,73 +6,60 @@
 
 <main>
 
-    <section class="section-details-content" id="popularContent">
-      <div class="container" style="margin-top: 30px; margin-bottom: 30px">
-        <div class="row">
-          <div class="col-lg-8 pl-lg-0">
-            <div class="card card-details mb-3">
-              @if ($errors->any())
+  <section class="section-details-content">
+    <div class="container">
+      <div class="row">
+        <div class="col p-0 pl-3 pl-lg-0">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item" aria-current="page">
+                Paket Travel
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                Details
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Checkout
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8 pl-lg-0">
+          <div class="card card-details mb-3">
+            <h1>Siap untuk bergabung?</h1>
+            <p>
+              Paket {{ $item->product->title }}
+            </p>
+            
+              <div class="member mt-3">
+                <h2>Data Penanggung Jawab</h2>
+                @if ($errors->any())
                 <div class="alert alert-danger">
-                  <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                  </ul>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-              @endif
-              <h1>Donation Packages</h1>
-              <p>
-                {{ $item->donation_package->title }}
-              </p>
-              {{-- @auth --}}
-              <div class="attendee">
-                <table class="table table-responsive-sm text-center">
-                  <thead>
-                    <tr>
-                      <td scope="col">Name</td>
-                      <td scope="col">Email</td>
-                      @guest
-                      <td scope="col">No WhatsApp</td>
-                      @endguest
-                      <td scope="col">Nominal</td>
-                      <td scope="col"></td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    
-                    <tr>
-                      <td class="align-middle">{{ $item->userable->name }}</td>
-                      <td class="align-middle">{{ $item->userable->email }}</td>
-                      @guest
-                      <td class="align-middle">{{ $item->userable->no_handphone}}</td>
-                      @endguest
-                      <td class="align-middle"><div class="myDIV">{{ $item->transaction_total }}</div></td>
+                @endif
 
-                      
-                    </tr>
-                  </tbody>
-                </table>
-                <form action="{{ route('product.checkout-process', $item->id)}}" method="post" id="authForm">
+                <p>Nama : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
+                <p>Email : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->email }}</span> </p>
+
+                <form action="{{ route('product.checkout-create', $item->id)}}" method="post" id="authForm">
                   @csrf
-                  <label class="sr-only" for="inputUsername">Nama lengkap</label>
-                  <input
-                  name="name"
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inpuName"
-                    placeholder="Nama"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Tempat Lahir</label>
+                  
+                  <p style="margin-bottom: -1px">Tempat Lahir</p>
                   <input
                   name="tempat_lahir"
                     type="text"
                     class="form-control mb-2 mr-sm-2"
-                    id="inpuTempatLahir"
-                    placeholder="Tempat Lahir"
+                    id="inputTempatLahir"
                   />
-
-                  <label class="sr-only" for="inputUsername">Tanggal Lahir</label>
+                  
+                  <p style="margin-bottom: -1px">Tanggal Lahir</p>
                   <input
                   name="tanggal_lahir"
                     type="date"
@@ -81,154 +68,122 @@
                     placeholder="Tanggal Lahir"
                   />
 
-                  <label class="sr-only" for="inputUsername">Alamat</label>
+                  <p style="margin-bottom: -1px">Alamat</p>
                   <textarea 
-                  class="form-control mb-2 mr-sm-2" 
-                  name="alamat" 
-                  id="inputAlamat" 
-                  rows="3" 
-                  placeholder="Alamat">
-                  </textarea>
+                  name="alamat"
+                  class="form-control mb-2 mr-sm-2"
+                  id="alamat" 
+                  cols="10" 
+                  rows="3">
+                </textarea>
 
-                  <label class="sr-only" for="inputUsername">Email</label>
+                <p style="margin-bottom: -1px">Telepon</p>
                   <input
-                  name="email"
-                    type="email"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputEmail"
-                    placeholder="Email"
-                  />
-                  <label class="sr-only" for="inputUsername">Nomor Handphone</label>
-                  <input
-                  name="no_handphone"
+                  name="telepon"
                     type="number"
                     class="form-control mb-2 mr-sm-2"
-                    id="inputWhatsapp"
-                    placeholder="Nomor Handphone"
+                    id="inputTelepon"
                   />
 
-                  <label class="sr-only" for="inputUsername">Pekerjaan</label>
+                  <p style="margin-bottom: -1px">Pekerjaan</p>
                   <input
                   name="pekerjaan"
                     type="text"
                     class="form-control mb-2 mr-sm-2"
                     id="inputPekerjaan"
-                    placeholder="Pekerjaan"
-                  />
-
-                  <label class="sr-only" for="inputUsername">No. KTP</label>
-                  <input
-                  name="no_ktp"
-                    type="number"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputNoKtp"
-                    placeholder="Nomor KTP"
-                  />
-
-                  <label class="sr-only" for="inputUsername">Upload Scan KTP</label>
-                  <h3 style="margin-bottom: -5px">Upload Scan KTP</h3>
-                  <input
-                  name="scanKtp"
-                    type="file"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputScanKtp"
-                    placeholder="Upload Scan KTP"
                   />
                   
-
-                  <label class="sr-only" for="inputUsername">Upload Scan Kartu Keluarga</label>
-                  <h3 style="margin-bottom: -5px">Upload Scan Kartu Keluarga</h3>
+                  <p style="margin-bottom: -1px">Nomor Kartu Keluarga</p>
                   <input
-                  name="scanKK"
+                  name="no_kk"
+                    type="number"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputNoKk"
+                  />
+
+                  <p style="margin-bottom: -1px">Scan kartu Tanda Penduduk</p>
+                  <input
+                  name="scan_ktp"
                     type="file"
                     class="form-control mb-2 mr-sm-2"
-                    id="inputScankk"
-                    placeholder="Upload Scan KK"
+                    id="inputScanKTP"
                   />
-                  {{-- p --}}
+
+                  <p style="margin-bottom: -1px">Scan Kartu Keluarga</p>
+                  <input
+                  name="scan_kk"
+                    type="file"
+                    class="form-control mb-2 mr-sm-2"
+                    id="inputScanKk"
+                  />
 
                 </form>
+        </div>
+
+
+          </div>
+        </div>
+
+
+        <div class="col-lg-4">
+          <div class="card card-details card-right">
+            <h2>Checkout Information</h2>
+            <table class="trip-informations">
+              <tr>
+                <th width="50%">Masa Aktif</th>
+                <td width="50%" class="text-right">{{ $item->masa_aktif }}</td>
+              </tr>
+              <tr>
+                <th width="50%">Pendaftaran</th>
+                <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->register }}</div></td>
+              </tr>
+              <tr>
+                <th width="50%">Harga Product</th>
+                <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->price }}</div></td>
+              </tr>
+              <tr>
+                <th width="50%">Total</th>
+                <td width="50%" class="text-right text-total">
+                  <span class="text-blue"><div class="myDIV">{{ $item->transaction_total }}</div></span>
+                </td>
+              </tr>
+            </table>
+
+            <hr />
+            <h2>Payment Instructions</h2>
+            <p class="payment-instructions">
+              Please complete your payment before to continue the wonderful
+              trip
+            </p>
+            <div class="bank">
+              <div class="bank-item pb-3">
+                <img
+                  src="{{ asset ('user/assets/img/ic_bsm.png')}}"
+                  alt=""
+                  class="bank-image"
+                />
+                <div class="description">
+                  <h3>71.201.701.41</h3>
+                  <p>
+                    MASJID BAITUL HAQ PURIGADING
+                    <br />
+                    Bank Code [451]
+                  </p>
+                </div>
+                <div class="clearfix"></div>
               </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="card card-details card-right">
-              <h2>Payment Instructions</h2>
-              <hr />
-              <p class="payment-instructions">
-                Silahkan selesaikan pembayaran anda
-                
-                {{-- lalu konfirmasi ke WhatsApp Center <br> <a href="https://wa.me/message/EMV4ZHEQ3PB7M1" target="_blank" style="font-weight: bold; font-size: 150%"> 0852 1327 4473</a> --}}
-              </p>
-              <div class="bank">
-                @if ($item->donation_package->target_dana == true)
-                <div class="bank-item pb-3">
-                  <img
-                    src="{{ asset('user/assets/img/ic_bsm.png')}}"
-                    alt=""
-                    class="bank-image"
-                  />
-                  <div class="description">
-                    <h3>71.201.701.09</h3>
-                    <p>
-                      MASJID BAITUL HAQ PURIGADING
-                      {{-- <br>
-                      <span style="color: gray; size: 50%">*Rekening Operasional Masjid & Pembangunan Masjid</span> --}}
-                    </p>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-                @else
-                <div class="bank-item pb-3">
-                  <img
-                    src="{{ asset('user/assets/img/ic_bsm.png')}}"
-                    alt=""
-                    class="bank-image"
-                  />
-                  <div class="description">
-                    <h3>71.201.701.17</h3>
-                    <p>
-                      MASJID BAITUL HAQ PURIGADING
-                      <br>
-                      <span style="color: gray; size: 50%">*Khusus untuk Operasional Masjid & Pembangunan Masjid</span>
-                    </p>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-
-                
-
-                <div class="bank-item pb-3">
-                  <img
-                    src="{{ asset('user/assets/img/qr1.png')}}"
-                    style="width: 100%"
-                    alt=""
-                    class="bank-image"
-                  />
-                  <div class="description">
-                    <p>
-                      Scan QR Code bisa digunakan diberbagai aplikasi pembayaran sejenis
-                      <br>
-                      <span style="color: gray; size: 50%">*Khusus untuk Operasional Masjid & Pembangunan Masjid</span>
-                    </p>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-                @endif
-                
-
-              </div>
-            </div>
-            <div class="join-container">
-            <a href="{{ route('donation.checkout-success', $item->id)}}" class="btn btn-block btn-join-now mt-3 py-2">Saya sudah Transfer</a>
-            </div>
-            <div class="text-center mt-3">
-              <a href="{{ route('donation.detail', $item->donation_package->slug)}}" class="text-muted">Cancel Donation</a>
-            </div>
+          <div class="join-container">
+            <button class="btn btn-block btn-join-now mt-3 py-2" type="submit" form="authForm">Daftar Sekarang</button>
+          </div>
+          <div class="text-center mt-3">
+            <a href="#" class="text-muted">Cancel Daftar</a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   </main>
 
 @include('user.partials.footer')
@@ -258,6 +213,7 @@
           });
   
           $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'
             uiLibrary: 'bootstrap4',
             icons: {
               rightIcon: '<img src="{{ asset('user/assets/img/ic_doe.png')}}" alt="" />'
@@ -275,6 +231,7 @@
       x[i].classList.add("currSign"); 
   } 
 </script>
+
 
 
 

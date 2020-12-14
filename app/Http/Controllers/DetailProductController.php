@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\TransactionProduct;
+use App\UserDetails;
 use Illuminate\Http\Request;
 
 class DetailProductController extends Controller
@@ -13,12 +14,12 @@ class DetailProductController extends Controller
         $item = Product::where('slug', $slug)
             ->firstOrFail();
         $transaction = TransactionProduct::all();
-
-
+        $userdetail = UserDetails::all();
 
         return view('user.pelayananjenazah.detail', [
             'item' => $item,
-            'transaction' => $transaction
+            'transaction' => $transaction,
+            'user' => $userdetail
         ]);
     }
 }

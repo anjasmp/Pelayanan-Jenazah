@@ -35,15 +35,15 @@
 
                     <td>{{ $item->transaction_status }}</td>
                     <td>
-                        <a href="{{ route('transaction.show', $item->id) }}" class="btn btn-primary">
+                        <a href="{{ route('transaction-product.show', $item->id) }}" class="btn btn-primary">
                             <i class="fa fa-eye"></i>
                             </a>
 
-                        <a href="{{ route('transaction.edit', $item->id) }}" class="btn btn-warning">
+                        <a href="{{ route('transaction-product.edit', $item->id) }}" class="btn btn-warning">
                         <i class="fa fa-pencil-alt"></i>
                         </a>
 
-                        <form action="{{ route('transaction.destroy', $item->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('transaction-product.destroy', $item->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">
