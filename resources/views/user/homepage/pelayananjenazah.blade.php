@@ -6,7 +6,7 @@
       <p>Pelayanan terpadu yang sesuai syariah</p>
     </header>
 
-    <div class="row">
+    <div class="row row-eq-height justify-content-center">
 
       @foreach ($items as $item)
       <div class="col-lg-4 col-md-6">

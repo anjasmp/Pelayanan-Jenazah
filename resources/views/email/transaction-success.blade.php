@@ -118,7 +118,7 @@
                         <tbody>
                           <tr>
                             <td style="width:150px;">
-                              <img alt="" height="auto" src="{{ url('user/assets/img/logo-warna.png')}}" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="150" />
+                              <img alt="" height="auto" src="{{ url('user/assets/img/upj.png')}}" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="150" />
                             </td>
                           </tr>
                         </tbody>
@@ -168,7 +168,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                   <tr>
                     <td align="center" style="font-size:0px;padding:10px 25px;padding-top:30px;padding-right:25px;padding-bottom:30px;padding-left:25px;word-break:break-word;">
-                      <div style="font-family:Playfair Display, Times New Roman, serif;font-size:30px;font-weight:bold;line-height:1;text-align:center;color:#038e81;">Terima kasih sudah donasi!</div>
+                      <div style="font-family:Playfair Display, Times New Roman, serif;font-size:30px;font-weight:bold;line-height:1;text-align:center;color:#038e81;">Terima kasih sudah bergabung!</div>
                     </td>
                   </tr>
                 </table>
@@ -218,7 +218,6 @@
                         <tbody>
                           <tr>
                             <td style="width:300px;">
-                              <img alt="" height="auto" src="{{ url($data->donation_package->galleries[0]->image) }}" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="300" />
                             </td>
                           </tr>
                         </tbody>
@@ -272,19 +271,26 @@
                         <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="" width="100%">
                           <tr>
                             <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
-                              <div style="font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:20px;text-align:left;color:#000000;">Assalamu'alaikum, {{ $data->userable->name }} <br><br> Tanda bukti donasi kamu sudah berhasil dicetak. <br> Donation ID <strong>#{{$data->id }}</strong></div>
+                              <div style="font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:20px;text-align:left;color:#000000;">Assalamu'alaikum, {{ $data->user->name }} <br><br> Tanda bukti pendaftaran. <br> Nomor Pendaftaran <strong>#{{$data->id }}</strong></div>
                             </td>
                           </tr>
                           <tr>
                             <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
                               <table cellpadding="0" cellspacing="0" width="100%" border="0" style="color:#038e81;font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:28px;table-layout:auto;width:100%;border:none;">
+
+                                @if ($data->user_families === true)
                                 <tr>
-                                  <td colspan="3">Donatur</td>
+                                  <td colspan="3">Daftar Anggota</td>
                                 </tr>
+                                @foreach ($data->user_families as $item)
                                 <tr>
-                                  <td><strong>{{ $data->userable->name }}</strong></td>
-                                  <td style="text-align: right;">Rp. {{ $data->transaction_total }}</td>
-                                </tr> 
+                                  <td><strong>{{ $item->name }}</strong></td>
+                                  <td style="text-align: right;">{{ $item->tempat_lahir }}</td>
+                                </tr>
+                                @endforeach
+                                @endif
+                                
+                                
                               </table>
                             </td>
                           </tr>
@@ -292,19 +298,23 @@
                             <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
                               <table cellpadding="0" cellspacing="0" width="100%" border="0" style="color:#000000;font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:28px;table-layout:auto;width:100%;border:none;">
                                 <tr>
-                                  <td colspan="3">Donation Details</td>
+                                  <td colspan="3">Paket Keanggotaan</td>
                                 </tr>
                                 <tr>
-                                  <td><strong>Nama Program</strong></td>
-                                  <td style="text-align: right;">{{$data->donation_package->title }}</td>
+                                  <td><strong>Nama Paket</strong></td>
+                                  <td style="text-align: right;">{{ $data->product->title}}</td>
                                 </tr>
                                 <tr>
-                                  <td><strong>Target Dana</strong></td>
-                                  <td style="text-align: right;">Rp. {{$data->donation_package->target_dana }}</td>
+                                  <td><strong>Tipe Pembayaran</strong></td>
+                                  <td style="text-align: right;">{{ $data->product->type}}</td>
                                 </tr>
                                 <tr>
-                                  <td><strong>Target Waktu</strong></td>
-                                  <td style="text-align: right;">{{$data->donation_package->target_waktu }}</td>
+                                  <td><strong>Biaya Pendaftaran</strong></td>
+                                  <td style="text-align: right;">{{ $data->product->register}}</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Harga Paket</strong></td>
+                                  <td style="text-align: right;">{{ $data->product->price}}</td>
                                 </tr>
                               </table>
                             </td>
@@ -314,7 +324,7 @@
                               <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                                 <tr>
                                   <td align="center" bgcolor="#038e81" role="presentation" style="border:none;border-radius:10px;cursor:auto;mso-padding-alt:10px 25px;background:#038e81;" valign="middle">
-                                    <a href="{{ url('donationcheckout/' . $data->id ) }}"><p style="display:inline-block;background:#038e81;color:#ffffff;font-family:Assistant, Helvetica, Arial, sanf-serif;font-size:18px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:10px;"> Check Detail </p></a>
+                                    <a href="{{ url('productcheckoutfamilies/' . $data->id ) }}"><p style="display:inline-block;background:#038e81;color:#ffffff;font-family:Assistant, Helvetica, Arial, sanf-serif;font-size:18px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:10px;"> Check Detail </p></a>
                                   </td>
                                 </tr>
                               </table>

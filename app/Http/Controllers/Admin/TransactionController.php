@@ -20,13 +20,12 @@ class TransactionController extends Controller
     public function index()
     {
         $items = Transaction::with([
-            'donation_package', 'userable'
+            'details', 'product', 'user'
         ])->orderBy('id', 'DESC')->get();
 
 
         return view ('admin.transaction.index', compact('items'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -61,10 +60,19 @@ class TransactionController extends Controller
     public function show($id)
     {
         $item = Transaction::with([
-            'donation_package', 'userable'
-        ])->findOrFail($id);
+            'product', 'user'
+            ])->findOrFail($id);
 
-        return view ('admin.transaction.detail', compact('item'));
+        
+        
+        $userdetail = UserDetails::with([
+            'user'
+        ])->findOrFail($id);
+        
+
+        return $userdetail;
+
+        return view('admin.transaction-product.detail', compact('item', 'userdetail'));
     }
 
     /**

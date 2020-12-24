@@ -4,8 +4,8 @@
 
         <div class="logo float-left">
             <!-- Uncomment below if you prefer to use an text logo -->
-            <!-- <h1><a href="index.html">NewBiz</a></h1> -->
-            <a href="/"><img src="{{ asset ('user/assets/img/logo.png')}}" alt="" class="img-fluid"></a>
+            <h3 style="color: white !important; margin-top: 7px">Unit Pelayanan Jenazah</h3>
+            {{-- <a href="/"><img src="{{ asset ('user/assets/img/logo.png')}}" alt="" class="img-fluid"></a> --}}
         </div>
 
         <nav class="main-nav float-right d-none d-lg-block">
@@ -33,6 +33,7 @@
               
 
                 <li><a href="#pricing" class="btn-get-started scrollto">Pilihan Paket</a></li>
+                <li><a href="{{ route('pelayanan.index') }}" class="btn-get-started scrollto">Member Area</a></li>
                 @guest
 
                 <li class="drop-down"><a href="#"><i class="fa fa-user-circle-o fa-lg" style="color: rgb(255, 255, 255) !important" aria-hidden="true"></i></a>
@@ -76,11 +77,11 @@
                 <li class="drop-down"><a href="#"><img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="user"
                     class="rounded-circle" width="30"></a>
                     <ul>
-                        @can('DASHBOARD (WAJIB)')
+                        @role('admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard.index')}}"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Dashboard</a>
                         </li>
-                        @endcan
+                        @endrole
 
                         <li class="nav-item">
                             <a class="dropdown-item" style="color:  #03877e; border-style: none;"

@@ -13,12 +13,12 @@
         @endif
 
         <div class="table-responsive">
-        <table class="table table-striped" id="tablepost">
+        {{-- <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Donation Packages</th>
-                    <th>User</th>
+                    <th>Product</th>
+                    <th>Nama</th>
                     <th>Total (Rp)</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -29,8 +29,8 @@
                 @forelse ($items as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ substr($item->donation_package->title, 0, 20) }}...</td>
-                    <td>{{ $item->userable->name }}</td>
+                    <td>{{ substr($item->product->title, 0, 20) }}...</td>
+                    <td>{{ $item->user->name }}</td>
                     <td><div class="myDIV">{{ $item->transaction_total }}</div></td>
 
                     <td>{{ $item->transaction_status }}</td>
@@ -60,7 +60,7 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table>
+        </table> --}}
         </div>
     </div>
 </div>

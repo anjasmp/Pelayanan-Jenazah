@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\UserFamilies;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -32,8 +33,8 @@ class TransactionSuccess extends Mailable
     public function build()
     {
         return $this
-        ->from('support@masjidbaitulhaq.com', 'Masjid Baitul Haq')
-        ->subject('Tanda Bukti Donasi | MBHQ')
+        ->from('support@upj.com', 'Support UPJ')
+        ->subject('Bukti Pendaftaran | UPJ Masjid Baitul Haq')
         ->view('email.transaction-success');
     }
 }

@@ -65,11 +65,15 @@ class TransactionProductController extends Controller
             ])->findOrFail($id);
 
         
+        
         $userdetail = UserDetails::with([
             'user'
         ])->findOrFail($id);
+        
 
-        return view('admin.transaction-product.detail', compact('item','userdetail'));
+        return $userdetail;
+
+        return view('admin.transaction-product.detail', compact('item', 'userdetail'));
     }
 
     /**

@@ -15,28 +15,29 @@
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Donation Packages</th>
-                    <th>User</th>
-                    <th>Total</th>
+                    <th>No</th>
+                    <th>Product</th>
+                    <th>Nama</th>
+                    <th>Total (Rp)</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
 
             <tbody>
-                @forelse ($item as $items => $result)
+                @forelse ($item as $key => $result)
                 <tr>
-                    <td>{{ $result->id }}</td>
-                    <td>{{ $result->donation_package->title }}</td>
-                    <td>{{ $result->userable->name }}</td>
-                    <td>{{ $result->transaction_total }}</td>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ substr($result->product->title, 0, 20) }}...</td>
+                    <td>{{ $result->user->name }}</td>
+                    <td><div class="myDIV">{{ $result->transaction_total }}</div></td>
+
                     <td>{{ $result->transaction_status }}</td>
                     <td>
-                        <a href="{{ route('transaction.restore', $result->id) }}" class="btn btn-info">
+                        <a href="{{ route('transaction-product.restore', $result->id) }}" class="btn btn-info">
                         <i class="fa fa-undo-alt"></i> </a>
 
-                        <form action="{{ route('transaction.kill', $result->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('transaction-product.kill', $result->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">

@@ -8,51 +8,12 @@
 <section class="section-details-content" id="popularContent">
   <div class="container" style="margin-top: 30px; margin-bottom: 30px">
     <div class="row">
-      <div class="col p-0 pl-3 pl-lg-0">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item" aria-current="page">
-              Paket Travel
-            </li>
-            <li class="breadcrumb-item" aria-current="page">
-              Details
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-              Checkout
-            </li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-lg-8 pl-lg-0">
         <div class="card card-details" style="margin: 10px">
           <h1>{{ $item->title }}</h1>
           <p>
             <span class="badge badge-pill badge-dark" style="background: #002b65">{{ $item->type }}</span>
           </p>
-          {{-- @if ($item->galleries->count())
-          <div class="gallery">
-            <div class="xzoom-container">
-              <img
-                class="xzoom"
-                id="xzoom-default"
-                src="{{ Storage::url($item->galleries->first()->image)}}"
-                xoriginal="{{ Storage::url($item->galleries->first()->image)}}"
-              />
-              <div class="xzoom-thumbs">
-                @foreach ($item->galleries as $gallery)
-                <a href="{{ Storage::url($gallery->image)}}"
-                ><img
-                  class="xzoom-gallery"
-                  width="128"
-                  src="{{ Storage::url($gallery->image)}}"
-                  xpreview="{{ Storage::url($gallery->image)}}"
-              /></a>
-                @endforeach
-              </div>
-            </div> --}}
-            <p>{!! $item->features !!}</p>
             <hr />
             <p>{!! $item->about !!}</p>
         </div>

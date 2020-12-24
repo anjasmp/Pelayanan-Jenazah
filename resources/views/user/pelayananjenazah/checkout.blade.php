@@ -1,31 +1,14 @@
 @extends('user.default')
-
 @include('user.partials.header')
-@include('user.pelayananjenazah.introdetail')
+@include('user.pelayananjenazah.introcheckout')
+
 @section('content')
 
 <main>
 
   <section class="section-details-content">
     <div class="container">
-      <div class="row">
-        <div class="col p-0 pl-3 pl-lg-0">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item" aria-current="page">
-                Paket Travel
-              </li>
-              <li class="breadcrumb-item" aria-current="page">
-                Details
-              </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Checkout
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-      <div class="row">
+      <div class="row row-eq-height justify-content-center">
         <div class="col-lg-8 pl-lg-0">
           <div class="card card-details mb-3">
             <h1>Siap untuk bergabung?</h1>
@@ -47,7 +30,7 @@
 
                 <p>Nama : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
                 <p>Email : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->email }}</span> </p>
-
+                
                 <form action="{{ route('product.checkout-create', $item->id)}}" method="post" id="authForm">
                   @csrf
                   
@@ -117,62 +100,15 @@
                     id="inputScanKk"
                   />
 
+                  
+
+                  <hr / style="margin-bottom: 30px; margin-top: 60px">
+
                 </form>
-        </div>
-
-
+                
           </div>
-        </div>
-
-
-        <div class="col-lg-4">
-          <div class="card card-details card-right">
-            <h2>Checkout Information</h2>
-            <table class="trip-informations">
-              <tr>
-                <th width="50%">Masa Aktif</th>
-                <td width="50%" class="text-right">{{ $item->masa_aktif }}</td>
-              </tr>
-              <tr>
-                <th width="50%">Pendaftaran</th>
-                <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->register }}</div></td>
-              </tr>
-              <tr>
-                <th width="50%">Harga Product</th>
-                <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->price }}</div></td>
-              </tr>
-              <tr>
-                <th width="50%">Total</th>
-                <td width="50%" class="text-right text-total">
-                  <span class="text-blue"><div class="myDIV">{{ $item->transaction_total }}</div></span>
-                </td>
-              </tr>
-            </table>
-
-            <hr />
-            <h2>Payment Instructions</h2>
-            <p class="payment-instructions">
-              Please complete your payment before to continue the wonderful
-              trip
-            </p>
-            <div class="bank">
-              <div class="bank-item pb-3">
-                <img
-                  src="{{ asset ('user/assets/img/ic_bsm.png')}}"
-                  alt=""
-                  class="bank-image"
-                />
-                <div class="description">
-                  <h3>71.201.701.41</h3>
-                  <p>
-                    MASJID BAITUL HAQ PURIGADING
-                    <br />
-                    Bank Code [451]
-                  </p>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+          <div class="text-left mt-3 mb-3">
+            <a href="#" class="text-muted">Baca Syarat & ketentuan</a>
           </div>
           <div class="join-container">
             <button class="btn btn-block btn-join-now mt-3 py-2" type="submit" form="authForm">Daftar Sekarang</button>
@@ -180,7 +116,12 @@
           <div class="text-center mt-3">
             <a href="#" class="text-muted">Cancel Daftar</a>
           </div>
+          </div>
+          
         </div>
+
+
+          
       </div>
     </div>
   </section>

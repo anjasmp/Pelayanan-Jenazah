@@ -41,11 +41,9 @@
     </div>
 
     <header id="headerIntro">
-      <h3>Detail Paket {{ $item->title }} </h3>
+      <h3> Paket {{ $item->title }} </h3>
     </header>
 
-    
-    
 
   </div>
 </section><!-- End Services Section -->

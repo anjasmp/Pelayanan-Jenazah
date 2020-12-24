@@ -552,8 +552,9 @@ Route::resource('product', 'Admin\ProductController');
 
 
 // Transaction Product
+Route::resource('transaction-product', 'Admin\TransactionProductController');
+
 Route::get('/transaction-product/show-deletes', 'Admin\TransactionProductController@show_deletes')->name('transaction-product.show-deletes');
 Route::get('/transaction-product/restore/{id}', 'Admin\TransactionProductController@restore')->name('transaction-product.restore');
 Route::delete('/transaction-product/kill/{id}', 'Admin\TransactionProductController@kill')->name('transaction-product.kill');
 
-Route::resource('transaction-product', 'Admin\TransactionProductController');

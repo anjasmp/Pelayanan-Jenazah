@@ -72,55 +72,55 @@
                             class="hide-menu">Postingan </span></a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
 
-                            @if (auth()->user()->can('create post'))
+                            {{-- @if (auth()->user()->can('create post')) --}}
                             <li class="sidebar-item"><a href="{{ route ('post.create')}}" class="sidebar-link"><span
                                     class="hide-menu"> Tambah Postingan</span></a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
 
-                            @if (auth()->user()->can('index post') || auth()->user()->can('edit post') || auth()->user()->can('delete post'))
+                            {{-- @if (auth()->user()->can('index post') || auth()->user()->can('edit post') || auth()->user()->can('delete post')) --}}
                             <li class="sidebar-item"><a href="{{ route ('post.index')}}" class="sidebar-link"><span
                                     class="hide-menu"> Daftar Postingan</span></a>
                             </li>
                             <li class="sidebar-item"><a href="{{ route ('post.show-deletes')}}" class="sidebar-link"><span
                                     class="hide-menu"> Tempat Sampah</span></a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
                         </ul>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false"><i class="fa fa-th-large" aria-hidden="true"></i><span
                             class="hide-menu">Kategori </span></a>
                         <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                            @if (auth()->user()->can('create category'))
+                            {{-- @if (auth()->user()->can('create category')) --}}
                             <li class="sidebar-item"><a href="{{ route ('category.create')}}" class="sidebar-link"><span
                                     class="hide-menu"> Tambah Kategori</span></a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
 
-                            @if (auth()->user()->can('index category') || auth()->user()->can('edit category') || auth()->user()->can('delete category'))
+                            {{-- @if (auth()->user()->can('index category') || auth()->user()->can('edit category') || auth()->user()->can('delete category')) --}}
                             <li class="sidebar-item"><a href="{{ route ('category.index')}}" class="sidebar-link"><span
                                     class="hide-menu"> Daftar Kategori</span></a>
                             </li>
-                            @endif
+                            {{-- @endif --}}
                     </ul>
                 </li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false"><i class="fa fa-tags" aria-hidden="true"></i><span
                             class="hide-menu">Tag </span></a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        @if (auth()->user()->can('create tag'))
+                        {{-- @if (auth()->user()->can('create tag')) --}}
                             <li class="sidebar-item"><a href="{{ route ('tag.create')}}" class="sidebar-link"><span
                                     class="hide-menu"> Tambah Tag</span></a>
                             </li>
-                        @endif
+                        {{-- @endif --}}
 
-                        @if (auth()->user()->can('index tag') || auth()->user()->can('edit tag') || auth()->user()->can('delete tag'))
+                        {{-- @if (auth()->user()->can('index tag') || auth()->user()->can('edit tag') || auth()->user()->can('delete tag')) --}}
                         <li class="sidebar-item"><a href="{{ route ('tag.index')}}" class="sidebar-link"><span
                                     class="hide-menu"> Daftar Tag
                                 </span></a>
                         </li>
-                        @endif
+                        {{-- @endif --}}
                     </ul>
                 </li>
 

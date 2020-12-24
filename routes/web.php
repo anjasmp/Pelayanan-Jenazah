@@ -46,6 +46,16 @@ Route::get('/productcheckout/{id}', 'CheckoutController@index')
 Route::post('/productcheckout/create/{detail_id}', 'CheckoutController@create')
 ->name('product.checkout-create');
 
+
+
+Route::get('/productcheckoutfamilies/{id}', 'CheckoutController@indexfamilies')
+->name('product.checkoutfamilies');
+
+Route::post('/productcheckout/createfamilies/{detail_id}', 'CheckoutController@createfamilies')
+->name('product.checkout-createfamilies');
+
+
+
 Route::get('/productcheckout/remove/{detail_id}', 'CheckoutController@remove')
 ->name('product.checkout-remove');
 

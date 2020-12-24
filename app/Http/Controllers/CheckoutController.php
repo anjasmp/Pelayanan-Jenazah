@@ -3,103 +3,39 @@
 namespace App\Http\Controllers;
 
 use Mail;
-use App\Mail\TransactionProductSuccess;
-use App\TransactionProduct;
+use App\Mail\TransactionSuccess;
 use App\Product;
-use App\Guest;
-use App\TransactionDetail;
+use App\Transaction;
 use App\User;
 use App\UserDetails;
+use App\UserFamilies;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
-use Validator;
-
-use Midtrans\Config;
-use Midtrans\Snap;
-
 
 class CheckoutController extends Controller
 {
 
     public function index (Request $request, $id)
     {
-        $item = TransactionProduct::with(['details','user','product'])->findOrFail($id);
+        $item = Transaction::with(['user_detail','user','product', 'user_families'])->findOrFail($id);
 
+        
         return view('user.pelayananjenazah.checkout',[
             'item' => $item
         ]);
+
 
     }
 
     public function process(Request $request, $id)
     {
-        // $this->validate($request, [
-            // 'name' => 'max:30',
-            // 'email' => 'email',
-            // 'tempat_lahir' => 'string|max:12',
-            // 'tanggal_lahir' => 'date',
-            // 'alamat' => 'required',
-            // 'telepon' => 'string',
-            // 'pekerjaan' => 'string|max:30',
-            // 'no_kk' => 'string',
-            // 'scan_ktp' => 'image',
-            // 'scan_kk' => 'image'
-        // ]);
-
-        // $product = Product::findOrFail($id);
-        // $data = $request->all();
-
-        // // if (Auth::check()) {
-            
-        // //     $transaction = Auth::user()->transactions()->create([
-        // //         'transaction_status' => 'IN_CART',
-        // //         'products_id' => $product->id,
-        // //         'transaction_total' => $data['nominal'],
-        // //     ]);
-        // // } else {
-
-
-        // $user = UserDetails::where('name', 'email' '=', $data['name', 'email'])->first();
-
-        // $data['image'] = $request->file('image')->store(
-        //     'assets/product', 'public'
-        // );
-
-        // // if ($guest) {
-
-        // // } else {
-
-        // $user = UserDetails::create([
-            // 'name' => $data['name'],
-            // 'email' => $data['email'],
-            // 'tempat_lahir' => $data['tempat_lahir'],
-            // 'tanggal_lahir' => $data['tanggal_lahir'],
-            // 'alamat' => $data['alamat'],
-            // 'telepon' => $data['telepon'],
-            // 'pekerjaan' => $data['pekerjaan'],
-            // 'no_kk' => $data['no_kk'],
-            // 'scan_ktp' => $data['scan_ktp'],
-            // 'scan_kk' => $data['scan_kk']
-        // ]);
-
-        // }
-
-        // $transaction = $guest->transactions()->create([
-        //     'transaction_status' => 'IN_CART',
-        //     'products_id' => $product->id,
-        //     'transaction_total' => $product->price,
-        // ]);
-        // }
-
-        
-
         $product = Product::findOrFail($id);
         // $user_details = UserDetails::findOrFail($id);
+        // $user_families = UserFamilies::findOrFail($id);
         // $transactiondetail = TransactionDetail::all();
 
-        $transaction = TransactionProduct::create([
+        $transaction = Transaction::create([
             'products_id' => $id,
             'users_id' => Auth::user()->id,
             'masa_aktif' => Carbon::now()->addYear(1),
@@ -108,21 +44,13 @@ class CheckoutController extends Controller
             'transaction_status' => 'IN_CART'
         ]);
 
-        // TransactionDetail::create([
-        //     'transaction_products_id' => $transaction->id,
-        //     'name' => Auth::user()->name
-        // ]);
-
-        // UserDetails::create([
-        //     'users_id' => $id,
+        // UserFamilies::create([
+        //     'transactions_id' => $transaction->id,
+        //     'name' => Auth::user()->name,
         //     'tempat_lahir' => $user_details->tempat_lahir,
         //     'tanggal_lahir' => $user_details->tanggal_lahir,
-        //     'alamat' => $user_details->alamat,
-        //     'telepon' => $user_details->telepon,
-        //     'pekerjaan' => $user_details->pekerjaan,
-        //     'no_kk' => $user_details->no_kk,
-        //     'scan_ktp' => $user_details->scan_ktp,
-        //     'scan_kk' => $user_details->scan_kk
+        //     'nik' => $user_details->no_kk
+
         // ]);
 
 
@@ -141,23 +69,18 @@ class CheckoutController extends Controller
             'alamat' => 'required',
             'telepon' => 'string',
             'pekerjaan' => 'string|max:30',
-            'no_kk' => 'string'
+            'no_kk' => 'string',
+            'nik' => 'string'
         ]);
 
-        // TransactionDetail::create([
-        //     'transaction_products_id' => $request->transaction_products_id,
-        //     'name' => $request->name,
-        //     'nik' => $request->nik,
-
-        // ]);
-
         $data = $request->all();
-
-        $item = TransactionProduct::all();
+        
+        $transaction = Transaction::findOrFail($id);
 
         UserDetails::create([
             // 'name' => $data['name'],
             // 'email' => $data['email'],
+            'transactions_id' => $transaction->id,
             'tempat_lahir' => $data['tempat_lahir'],
             'tanggal_lahir' => $data['tanggal_lahir'],
             'alamat' => $data['alamat'],
@@ -168,41 +91,84 @@ class CheckoutController extends Controller
 
         ]);
 
-        return redirect()->route('product.checkout-success', $id);
+        
+
+        return redirect()->route('product.checkoutfamilies', $id);
+    }
+
+
+    public function indexfamilies (Request $request, $id)
+    {
+        $item = Transaction::with(['user_detail','user','product', 'user_families'])->findOrFail($id);
+
+        $items = UserFamilies::Where('users_id', Auth::id())->get();
+        
+        return view('user.pelayananjenazah.checkout_families',[
+            'item' => $item,
+            'items' => $items
+        ]);
+
+
     }
     
+    public function createfamilies (Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'max:30',
+            'tempat_lahir' => 'string|max:12',
+            'tanggal_lahir' => 'date',
+            'nik' => 'string|max:12'
+        ]);
 
-    // public function remove (Request $request, $detail_id)
-    // {
-    //     $item = TransactionDetail::findOrFail($detail_id);
 
-    //     $transaction = TransactionProduct::with(['details','product'])
-    //         ->findOrFail($item->transaction_products_id);
+        $data = $request->all();
+        $transaction = Transaction::findOrFail($id);
 
-    //     $item->delete();
+        UserFamilies::create([
+            'users_id' => Auth::id(),
+            'transactions_id' => $transaction->id,
+            'name' => $data['name'],
+            'tempat_lahir' => $data['tempat_lahir'],
+            'tanggal_lahir' => $data['tanggal_lahir'],
+            'nik' => $data['nik']
+
+        ]);
+
+        return redirect()->route('product.checkoutfamilies', $id);
+    }
+
+    public function remove (Request $request, $id)
+    {
+        $item = UserFamilies::findorfail($id);
 
 
-    //     return redirect()->route('product.checkout', $item->transaction_products_id);
-    // }
+        $item->delete();
+
+
+        return redirect()->route('product.checkoutfamilies', $item->transactions_id);
+    }
 
 
 
 
     public function success (Request $request, $id)
     {
-        $transaction = TransactionProduct::with(['product','user'])
+        $transaction = Transaction::with(['product','user','user_detail','user_families'])
             ->findOrFail($id);
+
         $transaction->transaction_status = 'PENDING';
 
         $transaction->save();
         // $transaction->load(['user']);
 
+        // return $transaction;
+
 
         // ini untuk Transfer Manual
         // kirim email keuser
-        // Mail::to($transaction->users_id)->send(
-        //     new App\Http\Controllers\TransactionProductSucces($transaction)
-        // );
+        Mail::to($transaction->user)->send(
+            new TransactionSuccess($transaction)
+        );
 
 
         return view('user.pelayananjenazah.success');

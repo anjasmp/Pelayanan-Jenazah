@@ -22,34 +22,34 @@
         </div>
         @endif
 
-    <form action="{{ route('product.store')}}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="title">Nama Paket</label>
-        <input type="text" class="form-control" name="title" placeholder="Nama" value="{{ old('title') }}">
-        </div>
-        <div class="form-group">
-            <label for="title">Fitur</label>
-            <textarea class="form-control" name="features" id="fitur" rows="10">{{ old('features') }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="title">About</label>
-            <textarea class="form-control" name="about" id="about" rows="10">{{ old('about') }}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="title">Tipe </label>
-        <input type="text" class="form-control" name="type" placeholder="Tipe" value="{{ old('type') }}">
-        </div>
-        <div class="form-group">
-            <label for="title">Biaya Pendaftaran </label>
-        <input type="text" class="form-control" name="register" placeholder="Pendaftaran" value="{{ old('type') }}">
-        </div>
-        <div class="form-group">
-            <label for="title">Harga</label>
-        <input type="number" class="form-control" name="price" placeholder="Harga" value="{{ old('price') }}">
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Save</button>
-    </form>
+        <form action="{{ route('product.store')}}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="title">Nama</label>
+            <input type="text" class="form-control" name="title" placeholder="Nama" value="{{ old('title') }}">
+            </div>
+            <div class="form-group">
+                <label for="title">Fitur</label>
+                <textarea class="form-control" name="features" id="fitur" rows="10">{{ old('features') }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="title">About</label>
+                <textarea class="form-control" name="about" id="about" rows="10">{{ old('about') }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="title">Tipe </label>
+            <input type="text" class="form-control" name="type" placeholder="Tipe" value="{{ old('type') }}">
+            </div>
+            <div class="form-group">
+                <label for="title">Biaya Pendaftaran </label>
+            <input type="text" class="form-control" name="register" placeholder="Pendaftaran" value="{{ old('type') }}">
+            </div>
+            <div class="form-group">
+                <label for="title">Harga</label>
+            <input type="number" class="form-control" name="price" placeholder="Harga" value="{{ old('price') }}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
 
 
     </div>

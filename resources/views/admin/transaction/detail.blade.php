@@ -24,31 +24,86 @@
 
         
 
-    <table class="table table-bordered">
+    {{-- <table class="table table-bordered">
         
         <tr>
             <th>ID</th>
             <td>{{ $item->id }}</td>
         </tr>
         <tr>
-            <th>Donation Packages</th>
-            <td>{{ $item->donation_package->title }}</td>
+            <th>Product</th>
+            <td>{{ $item->product->title }}</td>
         </tr>
         <tr>
-            <th>Donatur</th>
-            <td>{{ $item->userable->name }}</td>
+            <th>Nama Penanggung Jawab</th>
+            <td>{{ $item->user->name }}</td>
+        </tr>
+    
+        <tr>
+            <th>Tempat Lahir</th>
+            <td>{{ $userdetail->tempat_lahir }}</td>
         </tr>
         <tr>
-            <th>Email</th>
-            <td>{{ $item->userable->email }}</td>
+            <th>Tanggal Lahir</th>
+            <td>{{ $userdetail->tanggal_lahir }}</td>
         </tr>
         <tr>
-            <th>Nomor</th>
-            <td>{{ $item->userable->no_handphone }}</td>
+            <th>Alamat</th>
+            <td>{{ $userdetail->alamat }}</td>
+        </tr>
+        <tr>
+            <th>Telepon</th>
+            <td>{{ $userdetail->telepon }}</td>
+        </tr>
+        <tr>
+            <th>Pekerjaan</th>
+            <td>{{ $userdetail->pekerjaan }}</td>
+        </tr>
+        <tr>
+            <th>Nomor Kartu Keluarga</th>
+            <td>{{ $userdetail->no_kk }}</td>
+        </tr>
+        <tr>
+            <th>Scan KTP</th>
+            <td>{{ $userdetail->scan_ktp }}</td>
+        </tr>
+        <tr>
+            <th>Scan KK</th>
+            <td>{{ $userdetail->scan_kk }}</td>
+        </tr> --}}
+
+        {{-- @if ($item->details != FALSE)
+        <tr>
+            <th>Anggota Keluarga</th>
+            <td>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>NIK</th>
+                        <th>Nama</th>
+                    </tr>
+                    @foreach ($item->details as $detail)
+                    <tr>
+                        
+                        <td>{{ $detail->id }}</td>
+                        <td>{{ $detail->nik }}</td>
+                        <td>{{ $detail->name }}</td>
+                        
+                    </tr>
+                    @endforeach
+
+                </table>
+            </td>
+        </tr>
+        @endif --}}
+
+        {{-- <tr>
+            <th>Masa Aktif</th>
+            <td>{{ $item->masa_aktif }}</td>
         </tr>
         <tr>
             <th>Transaction Total (Rp)</th>
-            <td><div class="myDIV">{{ $item->transaction_total }}</div></td>
+            <td><div class="myDIV"> {{ $item->transaction_total }}</div></td>
         </tr>
         <tr>
             <th>Status</th>
@@ -57,9 +112,9 @@
 
 
 
-    </table>
+    </table> --}}
 
-    <a href="{{ route('transaction.index')}}" class="btn btn-primary">
+    <a href="{{ route('transaction-product.index')}}" class="btn btn-primary">
         <i class="fa fa-chevron-left"></i>
         </a>
     

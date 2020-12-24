@@ -3,22 +3,29 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use SoftDeletes;
 
-    protected $guarded = [
-    ];
-
-
-    public function donation_package(){
-        return $this->belongsTo(DonationPackage::class, 'donation_packages_id', 'id');
+    protected $guarded = [];
+    
+    public function user_detail(){
+        return $this->hasMany(UserDetails::class, 'transactions_id', 'id');
     }
 
-    public function userable()
-    {
-        return $this->morphTo();
+    public function user_families(){
+        return $this->hasMany(UserFamilies::class, 'transactions_id', 'id');
     }
+
+    public function product(){
+        return $this->belongsTo(Product::class, 'products_id', 'id');
+    }
+    
+    public function user(){
+        return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    
+    
+
 }

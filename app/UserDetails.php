@@ -11,12 +11,16 @@ class UserDetails extends Model
 
     protected $guarded = [];
 
+    protected $hidden = [
+
+    ];
+
     public function user(){
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
     public function transactions()
     {
-        return $this->morphMany(TransactionProduct::class, 'users_id', 'id');
+        return $this->belongsTo(Transaction::class, 'transactions_id', 'id');
     }
 }

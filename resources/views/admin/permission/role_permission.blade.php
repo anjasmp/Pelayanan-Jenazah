@@ -22,7 +22,7 @@
         @endif
 
         <div class="row">
-                {{-- <div class="col-md-4">
+                <div class="col-md-4">
                         @slot('title')
                         <h4 class="card-title">Add New Permission</h4>
                         @endslot
@@ -44,7 +44,7 @@
 ​
                         @endslot
                 </div>
-​ --}}
+​
                 <div class="col">
                         
                         <form action="{{ route('users.roles_permission') }}" method="GET">
