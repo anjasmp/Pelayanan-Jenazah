@@ -31,32 +31,15 @@
                 <p>Nama : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->name }}</span> </p>
                 <p>Email : <span style="font-weight: bold; color: #039ea3">{{ Auth::user()->email }}</span> </p>
                 
-                <form action="{{ route('product.checkout-create', $item->id)}}" method="post" id="authForm">
+                <form action="{{ route('product.checkout-create', $item->id)}}" method="post" id="authForm" enctype="multipart/form-data">
                   @csrf
-                  
-                  <p style="margin-bottom: -1px">Tempat Lahir</p>
-                  <input
-                  name="tempat_lahir"
-                    type="text"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputTempatLahir"
-                  />
-                  
-                  <p style="margin-bottom: -1px">Tanggal Lahir</p>
-                  <input
-                  name="tanggal_lahir"
-                    type="date"
-                    class="form-control mb-2 mr-sm-2"
-                    id="inputTanggalLahir"
-                    placeholder="Tanggal Lahir"
-                  />
 
                   <p style="margin-bottom: -1px">Alamat</p>
                   <textarea 
                   name="alamat"
                   class="form-control mb-2 mr-sm-2"
                   id="alamat" 
-                  cols="10" 
+                  cols="10"
                   rows="3">
                 </textarea>
 
@@ -100,8 +83,6 @@
                     id="inputScanKk"
                   />
 
-                  
-
                   <hr / style="margin-bottom: 30px; margin-top: 60px">
 
                 </form>
@@ -114,7 +95,7 @@
             <button class="btn btn-block btn-join-now mt-3 py-2" type="submit" form="authForm">Daftar Sekarang</button>
           </div>
           <div class="text-center mt-3">
-            <a href="#" class="text-muted">Cancel Daftar</a>
+            <a href="{{ route('product.detail', $item->product->slug)}}" class="text-muted">Cancel Daftar</a>
           </div>
           </div>
           

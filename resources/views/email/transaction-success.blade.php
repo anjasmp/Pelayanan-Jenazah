@@ -276,21 +276,24 @@
                           </tr>
                           <tr>
                             <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
+                              
                               <table cellpadding="0" cellspacing="0" width="100%" border="0" style="color:#038e81;font-family:Assistant, Helvetica, Arial, sans-serif;font-size:18px;line-height:28px;table-layout:auto;width:100%;border:none;">
-
-                                @if ($data->user_families === true)
                                 <tr>
                                   <td colspan="3">Daftar Anggota</td>
                                 </tr>
-                                @foreach ($data->user_families as $item)
+
+                                @forelse ($data->user_detail->user_families as $item)
+                                
                                 <tr>
                                   <td><strong>{{ $item->name }}</strong></td>
-                                  <td style="text-align: right;">{{ $item->tempat_lahir }}</td>
+                                  <td style="text-align: right;">{{ $item->nik }}</td>
                                 </tr>
-                                @endforeach
-                                @endif
-                                
-                                
+                                @empty
+                                    <tr>
+                                       <td colspan="7" class="text-center">Data kosong</td>
+
+                                     </tr>
+                                @endforelse
                               </table>
                             </td>
                           </tr>

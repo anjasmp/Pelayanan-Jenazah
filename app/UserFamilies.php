@@ -11,12 +11,17 @@ class UserFamilies extends Model
 
     protected $guarded = [];
 
-    public function user(){
-        return $this->belongsTo(User::class, 'users_id', 'id');
+    public function user_detail(){
+        return $this->belongsTo(UserDetails::class, 'user_details_id', 'id');
     }
 
-    public function transactions()
-    {
-        return $this->belongsTo(Transaction::class, 'transactions_id', 'id');
+
+    public function services(){
+        return $this->hasMany(UserDetails::class);
     }
+
+    // public function transactions()
+    // {
+    //     return $this->belongsTo(Transaction::class, 'transactions_id', 'id');
+    // }
 }

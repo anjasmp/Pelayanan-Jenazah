@@ -24,7 +24,8 @@
 
         
 
-    {{-- <table class="table table-bordered">
+    <table class="table table-bordered">
+        
         
         <tr>
             <th>ID</th>
@@ -38,66 +39,77 @@
             <th>Nama Penanggung Jawab</th>
             <td>{{ $item->user->name }}</td>
         </tr>
-    
+
+        @foreach ($item->user_detail as $detail)
         <tr>
             <th>Tempat Lahir</th>
-            <td>{{ $userdetail->tempat_lahir }}</td>
+            <td>{{ $detail->tempat_lahir }}</td>
         </tr>
         <tr>
             <th>Tanggal Lahir</th>
-            <td>{{ $userdetail->tanggal_lahir }}</td>
+            <td>{{ $detail->tanggal_lahir }}</td>
         </tr>
         <tr>
             <th>Alamat</th>
-            <td>{{ $userdetail->alamat }}</td>
+            <td>{{ $detail->alamat }}</td>
         </tr>
         <tr>
             <th>Telepon</th>
-            <td>{{ $userdetail->telepon }}</td>
+            <td>{{ $detail->telepon }}</td>
         </tr>
         <tr>
             <th>Pekerjaan</th>
-            <td>{{ $userdetail->pekerjaan }}</td>
+            <td>{{ $detail->pekerjaan }}</td>
         </tr>
         <tr>
             <th>Nomor Kartu Keluarga</th>
-            <td>{{ $userdetail->no_kk }}</td>
+            <td>{{ $detail->no_kk }}</td>
         </tr>
         <tr>
             <th>Scan KTP</th>
-            <td>{{ $userdetail->scan_ktp }}</td>
+            <td><img src="{{ Storage::url($detail->scan_ktp) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
         </tr>
         <tr>
             <th>Scan KK</th>
-            <td>{{ $userdetail->scan_kk }}</td>
-        </tr> --}}
+            <td><img src="{{ Storage::url($detail->scan_kk) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
+        </tr>
 
-        {{-- @if ($item->details != FALSE)
+        @endforeach
+
+     
         <tr>
             <th>Anggota Keluarga</th>
             <td>
                 <table class="table table-bordered">
                     <tr>
-                        <th>ID</th>
                         <th>NIK</th>
                         <th>Nama</th>
+                        <th>tempat_lahir</th>
+                        <th>tanggal_lahir</th>
                     </tr>
-                    @foreach ($item->details as $detail)
+                    @forelse ($item->user_families as $detail)
                     <tr>
                         
-                        <td>{{ $detail->id }}</td>
                         <td>{{ $detail->nik }}</td>
                         <td>{{ $detail->name }}</td>
+                        <td>{{ $detail->tempat_lahir }}</td>
+                        <td>{{ $detail->tanggal_lahir }}</td>
                         
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center">Data kosong</td>
+    
+                    </tr>
+                    @endforelse
+
 
                 </table>
             </td>
         </tr>
-        @endif --}}
+    
 
-        {{-- <tr>
+        <tr>
             <th>Masa Aktif</th>
             <td>{{ $item->masa_aktif }}</td>
         </tr>
@@ -112,9 +124,9 @@
 
 
 
-    </table> --}}
+    </table>
 
-    <a href="{{ route('transaction-product.index')}}" class="btn btn-primary">
+    <a href="{{ route('transaction.index')}}" class="btn btn-primary">
         <i class="fa fa-chevron-left"></i>
         </a>
     

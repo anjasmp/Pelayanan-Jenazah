@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Pelayanan;
+use App\Service;
+use App\Transaction;
+use App\UserDetails;
+use App\UserFamilies;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PelayananController extends Controller
 {
@@ -13,9 +18,20 @@ class PelayananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function home()
+    {
+        return view('member-area.pelayanan.home');
+    }
+
+
     public function index()
     {
-        return view('member-area.pelayanan.index');
+        
+
+        $item = Service::with(['transactions','user_families'])->Where('transactions_id', Auth::user()->id)->get();
+
+        return view('member-area.pelayanan.index', compact('item'));
     }
 
     /**
@@ -25,8 +41,8 @@ class PelayananController extends Controller
      */
     public function create()
     {
-        
-        return view('member-area.pelayanan.create');
+        $user_families = UserFamilies::Where('user_details_id', Auth::id())->get();
+        return view('member-area.pelayanan.create', compact('user_families'));
     }
 
     /**
@@ -37,7 +53,45 @@ class PelayananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama_ayah' => 'required|string',
+            'tanggal_wafat' => 'date',
+            'waktu_wafat' => 'date_format:H:i',
+            'tempat_wafat' => 'required|string',
+            'tempat_pemakaman' => 'required|string',
+            'kk_atau_ktp'  => 'required|image'
+
+        ]);
+
+
+        $data = $request->all();
+
+        $data['kk_atau_ktp'] = $request->file('kk_atau_ktp')->store(
+            'assets/kk_atau_ktp', 'public'
+        );        
+
+        $transaction = Transaction::where([
+            'users_id' => Auth::id()
+        ])->first();
+
+
+        Service::create([
+            'transactions_id' => $transaction->id,
+            'user_families_id' => $data['user_families_id'],
+            'nama_ayah' => $data['nama_ayah'],
+            'tanggal_wafat' => $data['tanggal_wafat'],
+            'waktu_wafat' => $data['waktu_wafat'],
+            'tempat_wafat' => $data['tempat_wafat'],
+            'tempat_pemakaman' => $data['tempat_pemakaman'],
+            'kk_atau_ktp' => $data['kk_atau_ktp'],
+            'service_status' => 'PROCESS'
+        ]);
+        
+        $user_families = UserFamilies::findOrFail($data['user_families_id']);
+        
+        $user_families->delete();
+
+        return redirect()->back()->with('success','Pengaduan musibah berhasil dibuat, silahkan menunggu dihubungi oleh kami');
     }
 
     /**
@@ -48,9 +102,13 @@ class PelayananController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $item = Service::with([
+            'transactions','user_families'
+            ])->findOrFail($id);
 
+
+        return view('admin.transaction.detail', compact('item'));
+        }
     /**
      * Show the form for editing the specified resource.
      *

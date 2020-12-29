@@ -8,14 +8,7 @@ class Transaction extends Model
 {
 
     protected $guarded = [];
-    
-    public function user_detail(){
-        return $this->hasMany(UserDetails::class, 'transactions_id', 'id');
-    }
 
-    public function user_families(){
-        return $this->hasMany(UserFamilies::class, 'transactions_id', 'id');
-    }
 
     public function product(){
         return $this->belongsTo(Product::class, 'products_id', 'id');
@@ -25,7 +18,14 @@ class Transaction extends Model
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
-    
-    
+    public function user_detail(){
+        return $this->hasOne(UserDetails::class, 'user_details_id', 'id');
+    }
+
+    public function services(){
+        return $this->hasOne(UserDetails::class);
+    }
+
+
 
 }

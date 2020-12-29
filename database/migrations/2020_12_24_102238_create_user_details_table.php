@@ -17,8 +17,7 @@ class CreateUserDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('transactions_id');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
+            $table->string('no_anggota')->default('1');
             $table->text('alamat');
             $table->string('telepon');
             $table->string('pekerjaan')->nullable();

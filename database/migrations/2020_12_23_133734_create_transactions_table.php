@@ -17,12 +17,11 @@ class CreateTransactionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('products_id');
             $table->unsignedBigInteger('users_id')->nullable();
-            $table->unsignedBigInteger('user_details_id')->nullable();
-            $table->unsignedBigInteger('user_families_id')->nullable();
             $table->date('masa_aktif')->nullable();
             $table->integer('register')->nullable();
             $table->integer('transaction_total');
             $table->string('transaction_status'); //In_cart, pending, success, cancel, failed
+            $table->softDeletes();
             $table->timestamps();
         });
     }

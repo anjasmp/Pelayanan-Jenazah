@@ -34,10 +34,10 @@
 
                     <td>{{ $result->transaction_status }}</td>
                     <td>
-                        <a href="{{ route('transaction-product.restore', $result->id) }}" class="btn btn-info">
+                        <a href="{{ route('transaction.restore', $result->id) }}" class="btn btn-info">
                         <i class="fa fa-undo-alt"></i> </a>
 
-                        <form action="{{ route('transaction-product.kill', $result->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('transaction.kill', $result->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">

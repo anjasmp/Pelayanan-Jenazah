@@ -15,12 +15,12 @@ class CreateUserFamiliesTable extends Migration
     {
         Schema::create('user_families', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('transactions_id');
+            $table->unsignedBigInteger('user_details_id');
             $table->string('name');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('nik')->nullable();
+            $table->string('userfamily_status'); //edited, approved, PENDING;
             $table->softDeletes();
             $table->timestamps();
         });

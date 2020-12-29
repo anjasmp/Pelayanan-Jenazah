@@ -12,13 +12,14 @@ use App\UserFamilies;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class CheckoutController extends Controller
 {
 
     public function index (Request $request, $id)
     {
-        $item = Transaction::with(['user_detail','user','product', 'user_families'])->findOrFail($id);
+        $item = Transaction::with(['user','product'])->findOrFail($id);
 
         
         return view('user.pelayananjenazah.checkout',[
@@ -30,6 +31,14 @@ class CheckoutController extends Controller
 
     public function process(Request $request, $id)
     {
+        $user = Transaction::where('users_id', Auth::user()->id )->with(['transactions' => function($query) use($id){
+            $query->where('products_id', $id);
+        }])->exists();
+
+        if ($user) {
+            return redirect()->back();
+        }
+        
         $product = Product::findOrFail($id);
         // $user_details = UserDetails::findOrFail($id);
         // $user_families = UserFamilies::findOrFail($id);
@@ -62,36 +71,40 @@ class CheckoutController extends Controller
     public function create (Request $request, $id)
     {
         $this->validate($request, [
-            // 'name' => 'max:30',
-            // 'email' => 'email',
-            'tempat_lahir' => 'string|max:12',
-            'tanggal_lahir' => 'date',
-            'alamat' => 'required',
-            'telepon' => 'string',
+            'alamat' => 'required|max:60',
+            'telepon' => 'required|string',
             'pekerjaan' => 'string|max:30',
-            'no_kk' => 'string',
-            'nik' => 'string'
+            'no_kk' => 'required|string',
+            'scan_ktp' => 'required|image',
+            'scan_kk' => 'required|image'
+
         ]);
 
+
         $data = $request->all();
-        
-        $transaction = Transaction::findOrFail($id);
+
+        $data['scan_kk'] = $request->file('scan_kk')->store(
+            'assets/scan_kk', 'public'
+        );
+
+        $data['scan_ktp'] = $request->file('scan_ktp')->store(
+            'assets/scan_ktp', 'public'
+        );
 
         UserDetails::create([
-            // 'name' => $data['name'],
-            // 'email' => $data['email'],
-            'transactions_id' => $transaction->id,
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
+            'transactions_id' => $id,
             'alamat' => $data['alamat'],
             'telepon' => $data['telepon'],
             'pekerjaan' => $data['pekerjaan'],
             'no_kk' => $data['no_kk'],
+            'scan_kk' => $data['scan_kk'],
+            'scan_ktp' => $data['scan_ktp'],
             'users_id' => Auth::id()
 
         ]);
 
-        
+
+
 
         return redirect()->route('product.checkoutfamilies', $id);
     }
@@ -99,9 +112,9 @@ class CheckoutController extends Controller
 
     public function indexfamilies (Request $request, $id)
     {
-        $item = Transaction::with(['user_detail','user','product', 'user_families'])->findOrFail($id);
+        $item = Transaction::with(['user','product'])->findOrFail($id);
 
-        $items = UserFamilies::Where('users_id', Auth::id())->get();
+        $items = UserFamilies::Where('user_details_id', Auth::id())->get();
         
         return view('user.pelayananjenazah.checkout_families',[
             'item' => $item,
@@ -113,26 +126,33 @@ class CheckoutController extends Controller
     
     public function createfamilies (Request $request, $id)
     {
+        $data = $request->all();
+
         $this->validate($request, [
             'name' => 'max:30',
-            'tempat_lahir' => 'string|max:12',
+            'tempat_lahir' => 'string|max:255',
             'tanggal_lahir' => 'date',
-            'nik' => 'string|max:12'
+            'nik' => 'string|max:255|unique:user_families,nik'
         ]);
 
 
-        $data = $request->all();
-        $transaction = Transaction::findOrFail($id);
+
+        $details = UserDetails::where([
+            'users_id' => Auth::id(),
+            'transactions_id' => $id
+        ])->first();
+
 
         UserFamilies::create([
-            'users_id' => Auth::id(),
-            'transactions_id' => $transaction->id,
+            'user_details_id' => $details->id,
             'name' => $data['name'],
             'tempat_lahir' => $data['tempat_lahir'],
             'tanggal_lahir' => $data['tanggal_lahir'],
-            'nik' => $data['nik']
+            'nik' => $data['nik'],
+            'userfamily_status' => 'PENDING'
 
         ]);
+
 
         return redirect()->route('product.checkoutfamilies', $id);
     }
@@ -153,7 +173,7 @@ class CheckoutController extends Controller
 
     public function success (Request $request, $id)
     {
-        $transaction = Transaction::with(['product','user','user_detail','user_families'])
+        $transaction = Transaction::with(['product','user','user_detail.user_families'])
             ->findOrFail($id);
 
         $transaction->transaction_status = 'PENDING';
@@ -163,15 +183,16 @@ class CheckoutController extends Controller
 
         // return $transaction;
 
-
         // ini untuk Transfer Manual
         // kirim email keuser
-        Mail::to($transaction->user)->send(
+        Mail::to($transaction->user->email)->send(
             new TransactionSuccess($transaction)
         );
 
 
-        return view('user.pelayananjenazah.success');
+        return view('user.pelayananjenazah.success',[
+            'transaction' => $transaction
+        ]);
 
       
 

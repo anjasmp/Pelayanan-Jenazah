@@ -6,18 +6,71 @@
 
 <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
     <div class="card-body" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1); padding-bottom: 70px;">
-        <h1 style="text-align: center;"><span style="color: #03877e;"> <br>PERMINTAAN PELAYANAN JENAZAH</span> </h1>
-    </div>
-    <div class="card-group">
-        <div class="card border-center">
-            <a href="{{ route ('pelayanan.create')}}" class="btn btn-danger">
-            <div class="card-body">
-                <h2>KLIK DISINI !</h2>
-            </div>
-            </a>
+        @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session('success')}}
+        </div>
+        @endif
+
+        <div class="table-responsive">
+        <table class="table table-striped" id="tablepost">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Alm</th>
+                    <th>Bin/Binti</th>
+                    <th>Tanggal Wafat</th>
+                    <th>Waktu Wafat</th>
+                    <th>Tempat Wafat</th>
+                    <th>Tempat Pemakaman</th>
+                    <th>Scan KTP atau KK</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse ($item as $key => $item)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $item->user_families_id}}</td>
+                    <td>{{ $item->nama_ayah }}</td>
+                    <td>{{ $item->tanggal_wafat }}</td>
+                    <td>{{ $item->waktu_wafat }}</td>
+                    <td>{{ $item->tempat_wafat }}</td>
+                    <td>{{ $item->tempat_pemakaman }}</td>
+                    <td><img src="{{ Storage::url($item->kk_atau_ktp) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
+                    <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="text-center">Data kosong</td>
+
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
         </div>
     </div>
 </div>
 
 
 @endsection
+
+@push('scripts')
+<script src="{{ asset('user/assets/js/datatables.min.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $('#tablepost').dataTable()
+})
+</script>
+
+<script>
+    let x = document.querySelectorAll(".myDIV"); 
+    for (let i = 0, len = x.length; i < len; i++) { 
+        let num = Number(x[i].innerHTML) 
+                  .toLocaleString('en'); 
+        x[i].innerHTML = num; 
+        x[i].classList.add("currSign"); 
+    } 
+  </script>
+@endpush

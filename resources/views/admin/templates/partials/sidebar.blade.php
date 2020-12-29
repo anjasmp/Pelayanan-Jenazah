@@ -7,6 +7,43 @@
                 <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/admin"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span></a></li>
+
+                            <li class="list-divider"></li>
+                <li class="nav-small-cap"><span class="hide-menu">Pelayanan Jenazah</span></li>
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                        aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span
+                            class="hide-menu">Paket Pilihan</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        
+                            <li class="sidebar-item"><a href="{{ route('product.create')}}" class="sidebar-link"><span
+                                    class="hide-menu"> Tambah Paket</span></a>
+                            </li>
+                       
+
+                       
+                            <li class="sidebar-item"><a href="{{ route('product.index')}}" class="sidebar-link"><span
+                                    class="hide-menu"> Daftar Paket</span></a>
+                            </li>
+                            <li class="sidebar-item"><a href="{{ route('product.show-deletes')}}" class="sidebar-link"><span
+                            class="hide-menu"> Tempat Sampah</span></a>
+                            </li>
+                        
+                    </ul>
+                </li>
+
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                    aria-expanded="false"><i class="fa fa-credit-card" aria-hidden="true"></i><span
+                        class="hide-menu">Transaksi</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+
+                        {{-- @if (auth()->user()->can('index transaction') || auth()->user()->can('edit transaction') || auth()->user()->can('delete transaction') || auth()->user()->can('show transaction')) --}}
+                        <li class="sidebar-item"><a href="{{ route('transaction.index')}}" class="sidebar-link"><span
+                                class="hide-menu"> Daftar Transaksi</span></a>
+                        </li>
+                        {{-- @endif --}}
+                </ul>
+            </li>
+            
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Jumbotron</span></li>
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -124,195 +161,8 @@
                     </ul>
                 </li>
 
-                <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Pelayanan Jenazah</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                        aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span
-                            class="hide-menu">Paket Pilihan</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        
-                            <li class="sidebar-item"><a href="{{ route('product.create')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Tambah Paket</span></a>
-                            </li>
-                       
-
-                       
-                            <li class="sidebar-item"><a href="{{ route('product.index')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Daftar Paket</span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="{{ route('product.show-deletes')}}" class="sidebar-link"><span
-                            class="hide-menu"> Tempat Sampah</span></a>
-                            </li>
-                        
-                    </ul>
-                </li>
-
-                {{-- <li class="list-divider"></li>
-                <li class="nav-small-cap"><span class="hide-menu">Pelayanan Jenazah</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                        aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span
-                            class="hide-menu">Paket Pilihan</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        @if (auth()->user()->can('create donation package'))
-                            <li class="sidebar-item"><a href="{{ route('donation-package.create')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Tambah Paket</span></a>
-                            </li>
-                        @endif
-
-                        @if (auth()->user()->can('index donation package') || auth()->user()->can('edit donation package') || auth()->user()->can('delete donation package'))
-                            <li class="sidebar-item"><a href="{{ route('donation-package.index')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Daftar Paket</span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="{{ route('donation-package.show-deletes')}}" class="sidebar-link"><span
-                            class="hide-menu"> Tempat Sampah</span></a>
-                            </li>
-                        @endif
-                    </ul>
-                </li> --}}
-
-                {{-- <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                    aria-expanded="false"><i class="fa fa-camera" aria-hidden="true"></i><span
-                        class="hide-menu">Banner</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        @if (auth()->user()->can('create gallery donation'))
-                        <li class="sidebar-item"><a href="{{ route('gallery.create')}}" class="sidebar-link"><span
-                        class="hide-menu"> Tambah Banner</span></a>
-                        </li>
-                        @endif
-
-                        @if (auth()->user()->can('index gallery donation') || auth()->user()->can('edit gallery donation') || auth()->user()->can('delete gallery donation'))
-                        <li class="sidebar-item"><a href="{{ route('gallery.index')}}" class="sidebar-link"><span
-                                class="hide-menu"> Daftar Banner</span></a>
-                        </li>
-                        @endif
-                    </ul>
-                </li> --}}
-
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                    aria-expanded="false"><i class="fa fa-credit-card" aria-hidden="true"></i><span
-                        class="hide-menu">Transaksi</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                        {{-- @if (auth()->user()->can('index transaction') || auth()->user()->can('edit transaction') || auth()->user()->can('delete transaction') || auth()->user()->can('show transaction')) --}}
-                        <li class="sidebar-item"><a href="{{ route('transaction-product.index')}}" class="sidebar-link"><span
-                                class="hide-menu"> Daftar Transaksi</span></a>
-                        </li>
-                        {{-- @endif --}}
-
-                        {{-- @if (auth()->user()->can('delete transaction')) --}}
-                        <li class="sidebar-item"><a href="{{ route('transaction-product.show-deletes')}}" class="sidebar-link"><span
-                        class="hide-menu"> Tempat Sampah</span></a>
-                        </li>
-                        {{-- @endif --}}
-                </ul>
-            </li>
+                
         
-
-            {{-- <li class="list-divider"></li>
-            <li class="nav-small-cap"><span class="hide-menu">LAZHAQ Report</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                    aria-expanded="false"><i class="fa fa-sticky-note" aria-hidden="true"></i><span
-                        class="hide-menu">Receipt</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                        @if (auth()->user()->can('create lazhaq receipt'))
-                        <li class="sidebar-item"><a href="{{ route('penerimaan-lazhaq.create')}}" class="sidebar-link"><span
-                                class="hide-menu"> Create</span></a>
-                        </li>
-                        @endif
-
-                        @if (auth()->user()->can('index lazhaq receipt') || auth()->user()->can('edit lazhaq receipt') || auth()->user()->can('delete lazhaq receipt'))
-                        <li class="sidebar-item"><a href="{{ route('penerimaan-lazhaq.index')}}" class="sidebar-link"><span
-                                class="hide-menu"> List</span></a>
-                        </li>
-                        @endif
-                </ul>
-            </li>
-
-            <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                aria-expanded="false"><i class="fa fa-heart" aria-hidden="true"></i><span
-                    class="hide-menu">Distribution</span></a>
-                <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                        @if (auth()->user()->can('create lazhaq distribution'))
-                        <li class="sidebar-item"><a href="{{ route('penyaluran-lazhaq.create')}}" class="sidebar-link"><span
-                                class="hide-menu"> Create</span></a>
-                        </li>
-                        @endif
-
-                        @if (auth()->user()->can('index lazhaq distribution') || auth()->user()->can('edit lazhaq distribution') || auth()->user()->can('delete lazhaq distribution'))
-                        <li class="sidebar-item"><a href="{{ route('penyaluran-lazhaq.index')}}" class="sidebar-link"><span
-                            class="hide-menu"> List</span></a>
-                        </li>
-                        @endif
-            </ul>
-        </li>
-
-        <li class="list-divider"></li>
-            <li class="nav-small-cap"><span class="hide-menu">Qurban Report</span></li>
-            <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                    aria-expanded="false"><i class="fa fa-sticky-note" aria-hidden="true"></i><span
-                        class="hide-menu">Receipt</span></a>
-                <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                    @if (auth()->user()->can('create lazhaq receipt'))
-                    <li class="sidebar-item"><a href="{{ route('penerimaan-qurban.create')}}" class="sidebar-link"><span
-                                class="hide-menu"> Create</span></a>
-                    </li>
-                    @endif
-
-                    @if (auth()->user()->can('index lazhaq receipt') || auth()->user()->can('edit lazhaq receipt') || auth()->user()->can('delete lazhaq receipt'))
-                    <li class="sidebar-item"><a href="{{ route('penerimaan-qurban.index')}}" class="sidebar-link"><span
-                                class="hide-menu"> List</span></a>
-                    </li>
-                    @endif
-
-                </ul>
-            </li>
-
-            <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                aria-expanded="false"><i class="fa fa-heart" aria-hidden="true"></i><span
-                    class="hide-menu">Distribution</span></a>
-            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                @if (auth()->user()->can('create qurban distribution'))
-                <li class="sidebar-item"><a href="{{ route('penyaluran-qurban.create')}}" class="sidebar-link"><span
-                    class="hide-menu"> Create</span></a>
-                </li>
-                @endif
-
-                @if (auth()->user()->can('index qurban distribution') || auth()->user()->can('edit qurban distribution') || auth()->user()->can('delete qurban distribution'))
-                <li class="sidebar-item"><a href="{{ route('penyaluran-qurban.index')}}" class="sidebar-link"><span
-                            class="hide-menu"> List
-                        </span></a>
-                </li>
-                @endif
-
-            </ul>
-        </li>
-
-        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-            aria-expanded="false"><i class="fa fa-camera" aria-hidden="true"></i><span
-                class="hide-menu">Gallery</span></a>
-        <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-            @if (auth()->user()->can('create qurban distribution gallery'))
-            <li class="sidebar-item"><a href="{{ route('gallery-qurban.create')}}" class="sidebar-link"><span
-                class="hide-menu"> Create</span></a>
-            </li>
-            @endif
-
-            @if (auth()->user()->can('index qurban distribution gallery') || auth()->user()->can('edit qurban distribution gallery') || auth()->user()->can('delete qurban distribution gallery'))
-            <li class="sidebar-item"><a href="{{ route('gallery-qurban.index')}}" class="sidebar-link"><span
-                        class="hide-menu"> List</span></a>
-            </li>
-            @endif
-
-        </ul>
-    </li> --}}
-
-
-
 
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Manajemen Pengguna</span></li>

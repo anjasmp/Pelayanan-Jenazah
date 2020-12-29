@@ -54,7 +54,7 @@
           @auth
               <form action="{{ route('product.checkout-process', $item->id)}}" method="post">
                 @csrf
-                <button class="btn btn-block btn-join-now mt3 py-2" type="submit">Join Now</button>
+                <button class="btn btn-block btn-join-now mt3 py-2" type="submit">Gabung Sekarang!</button>
               </form>
           @endauth
           @guest

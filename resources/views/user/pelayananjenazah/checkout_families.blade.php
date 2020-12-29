@@ -11,9 +11,9 @@
           <div class="row">
             <div class="col-lg-8 pl-lg-0">
               <div class="card card-details mb-3">
-                <h1> <span style="font-weight: lighter">Penanggungjawab : </span> {{ $item->user->name }}</h1>
+                <h2>Data Kartu Keluarga</h2>
                 <p>
-                  Daftar Anggota Keluarga
+                  Isi sesuai yang ada di kartu keluarga (termasuk pendaftar)
                 </p>
                 <div class="attendee">
                   <table class="table table-responsive-sm text-center">
@@ -21,7 +21,8 @@
                       <tr>
                         <td scope="col">Name</td>
                         <td scope="col">NIK</td>
-                        <td scope="col">Umur</td>
+                        <td scope="col">Tempat Lahir</td>
+                        <td scope="col">Tanggal Lahir</td>
                         <td scope="col"></td>
                       </tr>
                     </thead>
@@ -30,6 +31,7 @@
                       <tr>
                         <td class="align-middle">{{ $detail->name }}</td>
                         <td class="align-middle">{{ $detail->nik }}</td>
+                        <td class="align-middle">{{ $detail->tempat_lahir }}</td>
                         <td class="align-middle">{{ $detail->tanggal_lahir }}</td>
                         <td class="align-middle">
                           <a href="{{ route('product.checkout-remove', $detail->id)}}">
@@ -48,6 +50,15 @@
                 </div>
                 <div class="member mt-3">
                   <h2>Tambah Anggota Keluarga</h2>
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
                   <form class="form-inline" method="post" action="{{ route('product.checkout-createfamilies', $item->id )}}">
                     @csrf
                     <label class="sr-only" for="inputName">Name</label>
@@ -120,7 +131,7 @@
                 <table class="trip-informations">
                   <tr>
                     <th width="50%">Anggota</th>
-                    <td width="50%" class="text-right">{{ $items->count() + $item->users_id }} person</td>
+                    <td width="50%" class="text-right">{{ $items->count() }} person</td>
                   </tr>
                   <tr>
                     <th width="50%">Masa Aktif</th>
@@ -131,7 +142,7 @@
                     <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->register }}</div></td>
                   </tr>
                   <tr>
-                    <th width="50%">Harga Product</th>
+                    <th width="50%">Biaya Langganan</th>
                     <td width="50%" class="text-right"><div class="myDIV">{{ $item->product->price }}</div></td>
                   </tr>
                   <tr>
