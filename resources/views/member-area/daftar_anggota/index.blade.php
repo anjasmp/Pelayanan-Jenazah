@@ -21,6 +21,7 @@
                     <th>NIK</th>
                     <th>Tempat Lahir</th>
                     <th>Tanggal Lahir</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>{{ $result->nik }}</td>
                     <td>{{ $result->tempat_lahir }}</td>
                     <td>{{ $result->tanggal_lahir }}</td>
+                    <td><span class="badge badge-pill badge-primary" >{{ $result->userfamily_status}}</span></td>
                     <td>
 
                         <form action="{{ route('anggota.destroy', $result->id)}}" method="POST">

@@ -19,11 +19,11 @@ class Transaction extends Model
     }
 
     public function user_detail(){
-        return $this->hasOne(UserDetails::class, 'user_details_id', 'id');
+        return $this->hasOne(UserDetails::class, 'transactions_id', 'id');
     }
 
     public function services(){
-        return $this->hasOne(UserDetails::class);
+        return $this->hasOne(Service::class, 'transactions_id', 'id');
     }
 
 

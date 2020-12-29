@@ -49,13 +49,13 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="/admin"
                     aria-expanded="false">
                     <i data-feather="settings" class="feather-icon"></i>
                     <span class="hide-menu">Data Pribadi</span>
                      </a>
-                </li>
+                </li> --}}
         </nav>
         <!-- End Sidebar navigation -->
     </div>

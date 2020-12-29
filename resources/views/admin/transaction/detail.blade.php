@@ -40,54 +40,42 @@
             <td>{{ $item->user->name }}</td>
         </tr>
 
-        @foreach ($item->user_detail as $detail)
-        <tr>
-            <th>Tempat Lahir</th>
-            <td>{{ $detail->tempat_lahir }}</td>
-        </tr>
-        <tr>
-            <th>Tanggal Lahir</th>
-            <td>{{ $detail->tanggal_lahir }}</td>
-        </tr>
         <tr>
             <th>Alamat</th>
-            <td>{{ $detail->alamat }}</td>
+            <td>{{ $item->user_detail->alamat }}</td>
         </tr>
         <tr>
             <th>Telepon</th>
-            <td>{{ $detail->telepon }}</td>
+            <td>{{ $item->user_detail->telepon }}</td>
         </tr>
         <tr>
             <th>Pekerjaan</th>
-            <td>{{ $detail->pekerjaan }}</td>
+            <td>{{ $item->user_detail->pekerjaan }}</td>
         </tr>
         <tr>
             <th>Nomor Kartu Keluarga</th>
-            <td>{{ $detail->no_kk }}</td>
+            <td>{{ $item->user_detail->no_kk }}</td>
         </tr>
         <tr>
             <th>Scan KTP</th>
-            <td><img src="{{ Storage::url($detail->scan_ktp) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
+            <td><img src="{{ Storage::url($item->user_detail->scan_ktp) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
         </tr>
         <tr>
             <th>Scan KK</th>
-            <td><img src="{{ Storage::url($detail->scan_kk) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
+            <td><img src="{{ Storage::url($item->user_detail->scan_kk) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
         </tr>
-
-        @endforeach
-
      
         <tr>
-            <th>Anggota Keluarga</th>
+            <th>Daftar Keluarga</th>
             <td>
                 <table class="table table-bordered">
                     <tr>
                         <th>NIK</th>
                         <th>Nama</th>
-                        <th>tempat_lahir</th>
-                        <th>tanggal_lahir</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
                     </tr>
-                    @forelse ($item->user_families as $detail)
+                    @forelse ($item->user_detail->user_families as $detail)
                     <tr>
                         
                         <td>{{ $detail->nik }}</td>

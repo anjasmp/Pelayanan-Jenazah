@@ -17,7 +17,7 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        $items = UserFamilies::Where('users_id', Auth::id())->orderBy('id', 'DESC')->get();
+        $items = UserFamilies::Where('user_details_id', Auth::id())->orderBy('id', 'DESC')->get();
 
 
         return view ('member-area.daftar_anggota.index', compact('items'));

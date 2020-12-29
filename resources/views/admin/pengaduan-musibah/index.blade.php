@@ -1,0 +1,80 @@
+@extends('admin.templates.default')
+
+@section('sub-judul','Daftar Pengaduan')
+@section('content')
+
+
+<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="card-body" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1); padding-bottom: 70px;">
+        @if(Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session('success')}}
+        </div>
+        @endif
+        <a href="{{ route('product.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Paket</a>
+        <div class="table-responsive">
+        <table class="table table-striped" id="tablepost">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Alm</th>
+                    <th>Bin/Binti</th>
+                    <th>Tanggal Wafat</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse ($items as $key => $item)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    @if ($item->user_families === true)
+                     <td>{{ $item->user_families->name }}</td>
+                    @endif
+                    <td>{{ ($item->user_families_id ) }}</td>
+                    <td>{{ ($item->nama_ayah) }}</td>
+                    <td>{{ ($item->tanggal_wafat) }}</td>
+                    <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
+                    
+                    <td>
+                        <a href="{{ route('service.show', $item->id) }}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                            </a>
+                        <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning">
+                        <i class="fa fa-pencil-alt"></i></a>
+
+                        <form action="{{ route('service.destroy', $item->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        </form>
+                    </td>
+
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="text-center">Data kosong</td>
+
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+
+@endsection
+
+@push('scripts')
+<script src="{{ asset('user/assets/js/datatables.min.js')}}"></script>
+<script>
+$(document).ready(function() {
+    $('#tablepost').dataTable()
+})
+</script>
+
+@endpush

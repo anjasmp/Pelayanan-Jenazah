@@ -17,7 +17,7 @@ class UserFamilies extends Model
 
 
     public function services(){
-        return $this->hasMany(UserDetails::class);
+        return $this->hasMany(Service::class);
     }
 
     // public function transactions()

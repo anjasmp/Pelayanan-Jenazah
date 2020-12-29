@@ -550,6 +550,13 @@ Route::delete('/product/kill/{id}', 'Admin\ProductController@kill')->name('produ
 
 Route::resource('product', 'Admin\ProductController');
 
+Route::get('/service/show-deletes', 'Admin\ServiceController@show_deletes')->name('service.show-deletes');
+Route::get('/service/restore/{id}', 'Admin\ServiceController@restore')->name('service.restore');
+Route::delete('/service/kill/{id}', 'Admin\ServiceController@kill')->name('service.kill');
+
+Route::resource('service', 'Admin\ServiceController');
+
+
 
 // Transaction Product
 Route::resource('transaction-product', 'Admin\TransactionProductController');
@@ -557,4 +564,8 @@ Route::resource('transaction-product', 'Admin\TransactionProductController');
 Route::get('/transaction-product/show-deletes', 'Admin\TransactionProductController@show_deletes')->name('transaction-product.show-deletes');
 Route::get('/transaction-product/restore/{id}', 'Admin\TransactionProductController@restore')->name('transaction-product.restore');
 Route::delete('/transaction-product/kill/{id}', 'Admin\TransactionProductController@kill')->name('transaction-product.kill');
+
+// Pengaduan Musibah
+
+
 

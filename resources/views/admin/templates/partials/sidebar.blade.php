@@ -8,6 +8,8 @@
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span></a></li>
 
+                            
+
                             <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pelayanan Jenazah</span></li>
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
@@ -42,7 +44,25 @@
                         </li>
                         {{-- @endif --}}
                 </ul>
-            </li>
+                </li>
+
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                    aria-expanded="false"><i class="fa fa-phone" aria-hidden="true"></i><span
+                        class="hide-menu">Pengaduan Musibah</span></a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+
+                        {{-- @if (auth()->user()->can('index transaction') || auth()->user()->can('edit transaction') || auth()->user()->can('delete transaction') || auth()->user()->can('show transaction')) --}}
+                        <li class="sidebar-item"><a href="{{ route('service.index')}}" class="sidebar-link"><span
+                                class="hide-menu"> Daftar Pengaduan</span></a>
+                        </li>
+                        {{-- @endif --}}
+                        <li class="sidebar-item"><a href="{{ route('service.show-deletes')}}" class="sidebar-link"><span
+                            class="hide-menu"> Tempat Sampah</span></a>
+                        </li>
+                </ul>
+                </li>
+
+                
             
                             <li class="list-divider"></li>
                             <li class="nav-small-cap"><span class="hide-menu">Jumbotron</span></li>
