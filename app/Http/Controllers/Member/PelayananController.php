@@ -42,6 +42,9 @@ class PelayananController extends Controller
     public function create()
     {
         $user_families = UserFamilies::Where('user_details_id', Auth::id())->get();
+
+        // $user_families = UserFamilies::doesntHave('deleted_at')->get();
+
         return view('member-area.pelayanan.create', compact('user_families'));
     }
 
@@ -87,9 +90,9 @@ class PelayananController extends Controller
             'service_status' => 'PROCESS'
         ]);
         
-        $user_families = UserFamilies::findOrFail($data['user_families_id']);
+        // $user_families = UserFamilies::findOrFail($data['user_families_id']);
         
-        $user_families->delete();
+        // $user_families->delete();
 
         return redirect()->back()->with('success','Pengaduan musibah berhasil dibuat, silahkan menunggu dihubungi oleh kami');
     }

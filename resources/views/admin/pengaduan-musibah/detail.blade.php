@@ -31,15 +31,9 @@
             <th>ID</th>
             <td>{{ $item->id }}</td>
         </tr>
-        @if ($item->user_families === true)
         <tr>
             <th>Nama Alm</th>
             <td>{{ $item->user_families->name }}</td>
-        </tr>
-        @endif
-        <tr>
-            <th>Nama Alm</th>
-            <td>{{ $item->user_families_id }}</td>
         </tr>
         <tr>
             <th>Bin/Binti</th>

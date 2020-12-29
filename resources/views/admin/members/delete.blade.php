@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Daftar Pengaduan')
+@section('sub-judul','Reclye Bin Anggota')
 @section('content')
 
 
@@ -11,42 +11,36 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('product.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Paket</a>
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Alm</th>
-                    <th>Bin/Binti</th>
-                    <th>Tanggal Wafat</th>
+                    <th>Penanggung Jawab</th>
+                    <th>Nama</th>
+                    <th>Tempat Lahir</th>
+                    <th>Tanggal Lahir</th>
+                    <th>NIK</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
 
             <tbody>
-                @forelse ($items as $key => $item)
+                @forelse ($item as $key => $result)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                     <td>{{ $item->user_families->name }}</td>
-                    <td>{{ ($item->nama_ayah) }}</td>
-                    <td>{{ Carbon\Carbon::parse($item->tanggal_wafat)->format('d-m-Y') }}</td>
-                    @if ($item->service_status == 'ACCEPTED')
-                    <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
-                    @else 
-                    <td><span class="badge badge-pill badge-warning" >{{ $item->service_status}}</span></td>
-                    @endif
-                    
-                    
+                    <td>{{ ($result->user_detail->user->name ) }}</td>
+                    <td>{{ ($result->name) }}</td>
+                    <td>{{ ($result->tempat_lahir) }}</td>
+                    <td>{{ ($result->tanggal_lahir) }}</td>
+                    <td>{{ ($result->nik) }}</td>
+                    <td><span class="badge badge-pill badge-primary" >{{ ($result->userfamily_status) }}</span></td>
                     <td>
-                        <a href="{{ route('service.show', $item->id) }}" class="btn btn-primary">
-                            <i class="fa fa-eye"></i>
-                            </a>
-                        <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning">
-                        <i class="fa fa-pencil-alt"></i></a>
+                        <a href="{{ route('daftar-anggota.restore', $result->id) }}" class="btn btn-info">
+                        <i class="fa fa-undo-alt"></i> </a>
 
-                        <form action="{{ route('service.destroy', $item->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('daftar-anggota.kill', $result->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">
@@ -78,5 +72,4 @@ $(document).ready(function() {
     $('#tablepost').dataTable()
 })
 </script>
-
 @endpush

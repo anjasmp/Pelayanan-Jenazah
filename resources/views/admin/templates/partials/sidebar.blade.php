@@ -12,39 +12,9 @@
 
                             <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Pelayanan Jenazah</span></li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                        aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span
-                            class="hide-menu">Paket Pilihan</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        
-                            <li class="sidebar-item"><a href="{{ route('product.create')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Tambah Paket</span></a>
-                            </li>
-                       
+               
 
-                       
-                            <li class="sidebar-item"><a href="{{ route('product.index')}}" class="sidebar-link"><span
-                                    class="hide-menu"> Daftar Paket</span></a>
-                            </li>
-                            <li class="sidebar-item"><a href="{{ route('product.show-deletes')}}" class="sidebar-link"><span
-                            class="hide-menu"> Tempat Sampah</span></a>
-                            </li>
-                        
-                    </ul>
-                </li>
-
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                    aria-expanded="false"><i class="fa fa-credit-card" aria-hidden="true"></i><span
-                        class="hide-menu">Transaksi</span></a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-
-                        {{-- @if (auth()->user()->can('index transaction') || auth()->user()->can('edit transaction') || auth()->user()->can('delete transaction') || auth()->user()->can('show transaction')) --}}
-                        <li class="sidebar-item"><a href="{{ route('transaction.index')}}" class="sidebar-link"><span
-                                class="hide-menu"> Daftar Transaksi</span></a>
-                        </li>
-                        {{-- @endif --}}
-                </ul>
-                </li>
+                
 
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                     aria-expanded="false"><i class="fa fa-phone" aria-hidden="true"></i><span
@@ -61,6 +31,56 @@
                         </li>
                 </ul>
                 </li>
+
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                    aria-expanded="false"><i class="fa fa-users" aria-hidden="true"></i><span
+                        class="hide-menu">Daftar Anggota</span></a>
+                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        <li class="sidebar-item"><a href="{{ route('daftar-anggota.index')}}" class="sidebar-link"><span
+                                class="hide-menu"> Daftar Anggota</span></a>
+                        </li>
+                        <li class="sidebar-item"><a href="{{ route('daftar-anggota.show-deletes')}}" class="sidebar-link"><span
+                        class="hide-menu"> Tempat Sampah</span></a>
+                        </li>
+                    
+                </ul>
+            </li>
+
+            <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                aria-expanded="false"><i class="fa fa-credit-card" aria-hidden="true"></i><span
+                    class="hide-menu">Transaksi</span></a>
+                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+
+                    {{-- @if (auth()->user()->can('index transaction') || auth()->user()->can('edit transaction') || auth()->user()->can('delete transaction') || auth()->user()->can('show transaction')) --}}
+                    <li class="sidebar-item"><a href="{{ route('transaction.index')}}" class="sidebar-link"><span
+                            class="hide-menu"> Daftar Transaksi</span></a>
+                    </li>
+                    {{-- @endif --}}
+            </ul>
+            </li>
+
+                <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                    aria-expanded="false"><i class="fa fa-cubes" aria-hidden="true"></i><span
+                        class="hide-menu">Paket Pilihan</span></a>
+                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                    
+                        <li class="sidebar-item"><a href="{{ route('product.create')}}" class="sidebar-link"><span
+                                class="hide-menu"> Tambah Paket</span></a>
+                        </li>
+                   
+
+                   
+                        <li class="sidebar-item"><a href="{{ route('product.index')}}" class="sidebar-link"><span
+                                class="hide-menu"> Daftar Paket</span></a>
+                        </li>
+                        <li class="sidebar-item"><a href="{{ route('product.show-deletes')}}" class="sidebar-link"><span
+                        class="hide-menu"> Tempat Sampah</span></a>
+                        </li>
+                    
+                </ul>
+            </li>
+
+            
 
                 
             

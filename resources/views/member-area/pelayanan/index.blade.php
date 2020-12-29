@@ -32,14 +32,22 @@
                 @forelse ($item as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $item->user_families_id}}</td>
+                    <td>{{ $item->user_families->name}}</td>
                     <td>{{ $item->nama_ayah }}</td>
                     <td>{{ $item->tanggal_wafat }}</td>
                     <td>{{ $item->waktu_wafat }}</td>
                     <td>{{ $item->tempat_wafat }}</td>
                     <td>{{ $item->tempat_pemakaman }}</td>
                     <td><img src="{{ Storage::url($item->kk_atau_ktp) }}" alt="" style="width: 150px" class="img-thumbnail" /></td>
+
+                    @if ($item->service_status == 'ACCEPTED')
                     <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
+                    @else
+                    <td><span class="badge badge-pill badge-warning" >{{ $item->service_status}}</span></td>
+                    @endif
+                    
+
+                    
                 </tr>
                 @empty
                 <tr>

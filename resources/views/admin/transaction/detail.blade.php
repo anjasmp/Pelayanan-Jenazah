@@ -66,23 +66,29 @@
         </tr>
      
         <tr>
-            <th>Daftar Keluarga</th>
+            <th>Daftar Kartu Keluarga</th>
             <td>
                 <table class="table table-bordered">
                     <tr>
                         <th>NIK</th>
                         <th>Nama</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
+                        <th>Tempat, Tanggal Lahir</th>
+                        <th>Status</th>
                     </tr>
                     @forelse ($item->user_detail->user_families as $detail)
                     <tr>
                         
                         <td>{{ $detail->nik }}</td>
                         <td>{{ $detail->name }}</td>
-                        <td>{{ $detail->tempat_lahir }}</td>
-                        <td>{{ $detail->tanggal_lahir }}</td>
-                        
+                        <td>{{ $detail->tempat_lahir }}, {{ Carbon\Carbon::parse($detail->tanggal_lahir)->format('d-m-Y') }}</td>
+                        @if ($detail->userfamily_status == 'ACTIVE')
+                        <td><span class="badge badge-pill badge-primary" >{{ ($detail->userfamily_status) }}</span></td>
+                        @else @if ($detail->userfamily_status == 'NON ACTIVE')
+                        <td><span class="badge badge-pill badge-danger" >{{ ($detail->userfamily_status) }}</span></td>
+                        @else
+                        <td><span class="badge badge-pill badge-warning" >{{ ($detail->userfamily_status) }}</span></td>
+                        @endif
+                        @endif
                     </tr>
                     @empty
                     <tr>

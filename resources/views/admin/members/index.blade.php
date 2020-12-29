@@ -1,6 +1,6 @@
 @extends('admin.templates.default')
 
-@section('sub-judul','Daftar Pengaduan')
+@section('sub-judul','Daftar Anggota')
 @section('content')
 
 
@@ -11,15 +11,16 @@
             {{ Session('success')}}
         </div>
         @endif
-        <a href="{{ route('product.create')}}" class="btn btn-primary" style="float: right;"> <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Paket</a>
+        
         <div class="table-responsive">
         <table class="table table-striped" id="tablepost">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Alm</th>
-                    <th>Bin/Binti</th>
-                    <th>Tanggal Wafat</th>
+                    <th>Penanggung Jawab</th>
+                    <th>Nama</th>
+                    <th>Tempat, Tanggal Lahir</th>
+                    <th>NIK</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -29,24 +30,26 @@
                 @forelse ($items as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                     <td>{{ $item->user_families->name }}</td>
-                    <td>{{ ($item->nama_ayah) }}</td>
-                    <td>{{ Carbon\Carbon::parse($item->tanggal_wafat)->format('d-m-Y') }}</td>
-                    @if ($item->service_status == 'ACCEPTED')
-                    <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
-                    @else 
-                    <td><span class="badge badge-pill badge-warning" >{{ $item->service_status}}</span></td>
+                    <td>{{ $item->user_detail->user->name }}</td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->tempat_lahir }}, {{ Carbon\Carbon::parse($item->tanggal_lahir)->format('d-m-Y') }}</td>
+                    <td>{{ $item->nik }}</td>
+
+
+                    @if ($item->userfamily_status == 'ACTIVE')
+                    <td><span class="badge badge-pill badge-primary" >{{ ($item->userfamily_status) }}</span></td>
+                    @else @if ($item->userfamily_status == 'NON ACTIVE')
+                    <td><span class="badge badge-pill badge-danger" >{{ ($item->userfamily_status) }}</span></td>
+                    @else
+                    <td><span class="badge badge-pill badge-warning" >{{ ($item->userfamily_status) }}</span></td>
                     @endif
-                    
-                    
+                    @endif
+
                     <td>
-                        <a href="{{ route('service.show', $item->id) }}" class="btn btn-primary">
-                            <i class="fa fa-eye"></i>
-                            </a>
-                        <a href="{{ route('service.edit', $item->id) }}" class="btn btn-warning">
+                        <a href="{{ route('daftar-anggota.edit', $item->id) }}" class="btn btn-info">
                         <i class="fa fa-pencil-alt"></i></a>
 
-                        <form action="{{ route('service.destroy', $item->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('daftar-anggota.destroy', $item->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger">
@@ -79,4 +82,13 @@ $(document).ready(function() {
 })
 </script>
 
+<script>
+    let x = document.querySelectorAll(".myDIV"); 
+    for (let i = 0, len = x.length; i < len; i++) { 
+        let num = Number(x[i].innerHTML) 
+                  .toLocaleString('en'); 
+        x[i].innerHTML = num; 
+        x[i].classList.add("currSign"); 
+    } 
+  </script>
 @endpush

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Service;
+use App\UserFamilies;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,11 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $items = Service::with([
-            'transactions','user_families.user_detail'
+        $items = UserFamilies::with([
+            'user_detail.user','services'
         ])->orderBy('id', 'DESC')->get();
 
-        // return $items;
-        return view ('admin.pengaduan-musibah.index', compact('items'));
+        return view ('admin.members.index', compact('items'));
     }
 
     /**
@@ -52,12 +51,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $item = Service::with([
-            'transactions','user_families'
-            ])->findOrFail($id);
-        
-        
-        return view('admin.pengaduan-musibah.detail', compact('item'));
+        //
     }
 
     /**
@@ -68,9 +62,9 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $item = Service::findOrFail($id);
+        $item = UserFamilies::findOrFail($id);
 
-        return view ('admin.pengaduan-musibah.edit', [
+        return view ('admin.members.edit', [
             'item' => $item
         ]);
     }
@@ -84,18 +78,16 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        // $data['slug'] = Str::slug($request->title);
+        
 
-        $item = Service::findOrFail($id);
+        $item = UserFamilies::findOrFail($id);
+
+
+        $data = $request->all();
 
         $item->update($data);
-        // $data = $request->all();
-        // $transaction_products->transaction_status = $data['transaction_status'];
-        // $transaction_products->save();
 
-        // $transaction->update($data);
-        return redirect()->route('service.index')->with('success','Data berhasil diubah');
+        return redirect()->route('daftar-anggota.index')->with('success','Data berhasil diubah');
     }
 
     /**
@@ -106,19 +98,27 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $item = Service::findOrFail($id);
+        $item = UserFamilies::findOrFail($id);
 
         $item->delete();
-        return redirect()->route('service.index')->with('success','Data berhasil dihapus (Cek Recyle Bin');
+        return redirect()->route('daftar-anggota.index')->with('success','Data berhasil dihapus (Cek Recyle Bin');
     }
 
     public function show_deletes(){
-        $item = Service::onlyTrashed()->get();
-        return view('admin.pengaduan-musibah.delete', compact('item'));
+
+        $item = UserFamilies::with([
+            'user_detail.user','services'
+        ])->onlyTrashed()->get();
+
+        
+
+        return view('admin.members.delete', compact('item'));
     }
 
     public function restore($id){
-        $item = Service::withTrashed()->where('id', $id)->first();
+        $item = UserFamilies::with([
+            'user_detail.user','services'
+        ])->withTrashed()->where('id', $id)->first();
 
         $item->restore();
 
@@ -126,7 +126,9 @@ class ServiceController extends Controller
     }
 
     public function kill($id){
-        $item = Service::withTrashed()->where('id', $id)->first();
+        $item = UserFamilies::with([
+            'user_detail.user','services'
+        ])->withTrashed()->where('id', $id)->first();
         $item->forceDelete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus permanen');

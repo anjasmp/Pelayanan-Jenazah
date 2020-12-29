@@ -565,7 +565,11 @@ Route::get('/transaction-product/show-deletes', 'Admin\TransactionProductControl
 Route::get('/transaction-product/restore/{id}', 'Admin\TransactionProductController@restore')->name('transaction-product.restore');
 Route::delete('/transaction-product/kill/{id}', 'Admin\TransactionProductController@kill')->name('transaction-product.kill');
 
-// Pengaduan Musibah
 
+Route::get('/daftar-anggota/show-deletes', 'Admin\MemberController@show_deletes')->name('daftar-anggota.show-deletes');
+Route::get('/daftar-anggota/restore/{id}', 'Admin\MemberController@restore')->name('daftar-anggota.restore');
+Route::delete('/daftar-anggota/kill/{id}', 'Admin\MemberController@kill')->name('daftar-anggota.kill');
+
+Route::resource('daftar-anggota', 'Admin\MemberController');
 
 

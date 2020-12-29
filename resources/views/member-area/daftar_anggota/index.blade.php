@@ -19,8 +19,7 @@
                     <th>No.</th>
                     <th>Nama</th>
                     <th>NIK</th>
-                    <th>Tempat Lahir</th>
-                    <th>Tanggal Lahir</th>
+                    <th>Tempat, Tanggal Lahir</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -32,9 +31,15 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $result->name }}</td>
                     <td>{{ $result->nik }}</td>
-                    <td>{{ $result->tempat_lahir }}</td>
-                    <td>{{ $result->tanggal_lahir }}</td>
-                    <td><span class="badge badge-pill badge-primary" >{{ $result->userfamily_status}}</span></td>
+                    <td>{{ $result->tempat_lahir }}, {{ Carbon\Carbon::parse($result->tanggal_lahir)->format('d-m-Y') }}</td>
+                    @if ($result->userfamily_status == 'ACTIVE')
+                    <td><span class="badge badge-pill badge-primary" >{{ ($result->userfamily_status) }}</span></td>
+                    @else @if ($result->userfamily_status == 'NON ACTIVE')
+                    <td><span class="badge badge-pill badge-danger" >{{ ($result->userfamily_status) }}</span></td>
+                    @else
+                    <td><span class="badge badge-pill badge-warning" >{{ ($result->userfamily_status) }}</span></td>
+                    @endif
+                    @endif
                     <td>
 
                         <form action="{{ route('anggota.destroy', $result->id)}}" method="POST">
