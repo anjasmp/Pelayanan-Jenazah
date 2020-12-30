@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Penanggung Jawab</th>
                     <th>Nama Alm</th>
                     <th>Bin/Binti</th>
                     <th>Tanggal Wafat</th>
@@ -29,13 +30,18 @@
                 @forelse ($items as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
-                     <td>{{ $item->user_families->name }}</td>
+                    <td>{{ $item->user_families->user_detail->user->name }}</td>
+                    <td>{{ $item->user_families->name }}</td>
                     <td>{{ ($item->nama_ayah) }}</td>
                     <td>{{ Carbon\Carbon::parse($item->tanggal_wafat)->format('d-m-Y') }}</td>
                     @if ($item->service_status == 'ACCEPTED')
                     <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
-                    @else 
+                    @else @if ($item->service_status == 'CANCEL')
+                    <td><span class="badge badge-pill badge-danger" >{{ $item->service_status}}</span></td>
+                    @else
                     <td><span class="badge badge-pill badge-warning" >{{ $item->service_status}}</span></td>
+                    @endif
+                   
                     @endif
                     
                     

@@ -42,8 +42,11 @@
 
                     @if ($item->service_status == 'ACCEPTED')
                     <td><span class="badge badge-pill badge-primary" >{{ $item->service_status}}</span></td>
+                    @else @if ($item->service_status == 'CANCEL')
+                    <td><span class="badge badge-pill badge-danger" >{{ $item->service_status}}</span></td>
                     @else
                     <td><span class="badge badge-pill badge-warning" >{{ $item->service_status}}</span></td>
+                    @endif
                     @endif
                     
 

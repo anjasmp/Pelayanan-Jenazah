@@ -41,7 +41,13 @@ class PelayananController extends Controller
      */
     public function create()
     {
-        $user_families = UserFamilies::Where('user_details_id', Auth::id())->get();
+        $user_families = UserFamilies::Where('user_details_id', Auth::id())
+                ->where(function ($query) {
+                    $query->where('userfamily_status', '=', 'ACTIVE');
+            })
+            ->get();
+
+
 
         // $user_families = UserFamilies::doesntHave('deleted_at')->get();
 
@@ -62,7 +68,8 @@ class PelayananController extends Controller
             'waktu_wafat' => 'date_format:H:i',
             'tempat_wafat' => 'required|string',
             'tempat_pemakaman' => 'required|string',
-            'kk_atau_ktp'  => 'required|image'
+            'kk_atau_ktp'  => 'required|image',
+            'userfamily_status' => 'string'
 
         ]);
 
@@ -78,6 +85,10 @@ class PelayananController extends Controller
         ])->first();
 
 
+        UserFamilies::where('id', $data['user_families_id'] )
+        ->update(['userfamily_status' => 'PENDING']);
+
+
         Service::create([
             'transactions_id' => $transaction->id,
             'user_families_id' => $data['user_families_id'],
@@ -89,10 +100,7 @@ class PelayananController extends Controller
             'kk_atau_ktp' => $data['kk_atau_ktp'],
             'service_status' => 'PROCESS'
         ]);
-        
-        // $user_families = UserFamilies::findOrFail($data['user_families_id']);
-        
-        // $user_families->delete();
+
 
         return redirect()->back()->with('success','Pengaduan musibah berhasil dibuat, silahkan menunggu dihubungi oleh kami');
     }

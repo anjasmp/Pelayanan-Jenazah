@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Service;
+use App\UserFamilies;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -16,7 +17,7 @@ class ServiceController extends Controller
     public function index()
     {
         $items = Service::with([
-            'transactions','user_families.user_detail'
+            'transactions','user_families.user_detail.user'
         ])->orderBy('id', 'DESC')->get();
 
         // return $items;
@@ -84,17 +85,30 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
         $data = $request->all();
-        // $data['slug'] = Str::slug($request->title);
 
         $item = Service::findOrFail($id);
 
-        $item->update($data);
-        // $data = $request->all();
-        // $transaction_products->transaction_status = $data['transaction_status'];
-        // $transaction_products->save();
 
-        // $transaction->update($data);
+        $item->update($data);
+
+        $UserFamilies = UserFamilies::where('id', $item->user_families_id);
+
+        if ($item->service_status === 'ACCEPTED') {
+            $UserFamilies->update(['userfamily_status' => 'NON ACTIVE']);
+        } else {
+           if ($item->service_status === 'PROCESS') {
+            $UserFamilies->update(['userfamily_status' => 'PENDING']);
+           } else {
+               if ($item->service_status === 'CANCEL') {
+                $UserFamilies->update(['userfamily_status' => 'ACTIVE']);
+               }
+           }
+        }
+
+
         return redirect()->route('service.index')->with('success','Data berhasil diubah');
     }
 

@@ -34,7 +34,7 @@
                         <td class="align-middle">{{ $detail->tempat_lahir }}</td>
                         <td class="align-middle">{{ $detail->tanggal_lahir }}</td>
                         <td class="align-middle">
-                          <a href="{{ route('product.checkout-remove', $detail->id)}}">
+                          <a href="{{ route('product.checkout-removefamilies', $detail->id)}}">
                             <img src="{{ asset('user/assets/img/ic_remove.png')}}" alt="" />
                           </a>
                         </td>

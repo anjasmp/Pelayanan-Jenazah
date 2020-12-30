@@ -1,8 +1,7 @@
-@extends('admin.templates.default')
+@extends('member-area.templates.default')
 
-@section('sub-judul','Tambah Anggota')
+@section('judul','Daftar Anggota')
 @section('content')
-
 
 <div class="card-body" style="box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1); padding-bottom: 70px;">
     @if(count($errors)>0)

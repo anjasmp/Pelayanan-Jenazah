@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Transaction;
+use App\UserDetails;
 use App\UserFamilies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,7 @@ class AnggotaController extends Controller
     {
         
 
-        $items = UserFamilies::Where('users_id', Auth::id())->get();
+        $items = UserFamilies::Where('user_details_id', Auth::id())->get();
         
         return view('member-area.daftar_anggota.create',[
             'items' => $items
@@ -48,23 +49,27 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'max:30',
-            'tempat_lahir' => 'string|max:12',
+            'name' => 'max:100',
+            'tempat_lahir' => 'string|max:255',
             'tanggal_lahir' => 'date',
-            'nik' => 'string|max:12'
+            'nik' => 'string|max:255|unique:user_families,nik'
         ]);
 
 
         $data = $request->all();
-        $userFamilies = UserFamilies::Where('transactions_id', true )->first();
+
+
+        $details = UserDetails::where([
+            'users_id' => Auth::id()
+        ])->first();
 
         UserFamilies::create([
-            'users_id' => Auth::id(),
-            'transactions_id' => $userFamilies->transactions_id,
+            'user_details_id' => $details->id,
             'name' => $data['name'],
             'tempat_lahir' => $data['tempat_lahir'],
             'tanggal_lahir' => $data['tanggal_lahir'],
-            'nik' => $data['nik']
+            'nik' => $data['nik'],
+            'userfamily_status' => 'PENDING'
 
         ]);
 
@@ -91,7 +96,7 @@ class AnggotaController extends Controller
      */
     public function edit($id)
     {
-        $items = UserFamilies::Where('users_id', Auth::id())->findorfail($id);
+        $items = UserFamilies::Where('user_details_id', Auth::id())->findorfail($id);
 
         return view('member-area.daftar_anggota.edit',[
             'items' => $items
@@ -108,10 +113,10 @@ class AnggotaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'max:30',
-            'tempat_lahir' => 'string|max:12',
+            'name' => 'max:100',
+            'tempat_lahir' => 'string|max:255',
             'tanggal_lahir' => 'date',
-            'nik' => 'string|max:12'
+            'nik' => 'string|max:255|unique:user_families,nik, '.$id
         ]);
 
 

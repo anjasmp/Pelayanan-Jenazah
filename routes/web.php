@@ -56,8 +56,8 @@ Route::post('/productcheckout/createfamilies/{detail_id}', 'CheckoutController@c
 
 
 
-Route::get('/productcheckout/remove/{detail_id}', 'CheckoutController@remove')
-->name('product.checkout-remove');
+Route::get('/productcheckout/removefamilies/{detail_id}', 'CheckoutController@remove')
+->name('product.checkout-removefamilies');
 
 
 Route::get('/productcheckout/confirm/{id}', 'CheckoutController@success')

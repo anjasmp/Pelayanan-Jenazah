@@ -34,6 +34,7 @@
             </option>
             <option value="PROCESS">PROCESS</option>
             <option value="ACCEPTED">ACCEPTED</option>
+            <option value="CANCEL">CANCEL</option>
 
             </select>
         </div>
